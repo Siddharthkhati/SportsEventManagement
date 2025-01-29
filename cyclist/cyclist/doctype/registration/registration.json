@@ -1,0 +1,168 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "CYC-.YYYY-.####",
+ "creation": "2025-01-29 15:52:39.725487",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "personal_details",
+  "name1",
+  "middle_name",
+  "last_name",
+  "full_name",
+  "dob",
+  "age",
+  "gender",
+  "phone_number",
+  "adhar_card_number",
+  "email",
+  "quota",
+  "licence_id",
+  "column_break_towr",
+  "documents_upload",
+  "adhar_card",
+  "passport_size_photograph",
+  "medical_certificate",
+  "birth_certificate",
+  "electronic_signature"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "First Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "dob",
+   "fieldtype": "Date",
+   "label": "DOB"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Gender",
+   "options": "Male\nFemale\nOthers",
+   "reqd": 1
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Phone",
+   "label": "Phone Number"
+  },
+  {
+   "fieldname": "column_break_towr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "passport_size_photograph",
+   "fieldtype": "Attach Image",
+   "label": "Passport Size Photograph"
+  },
+  {
+   "fieldname": "medical_certificate",
+   "fieldtype": "Attach",
+   "label": "Medical Certificate"
+  },
+  {
+   "fieldname": "adhar_card_number",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Adhar Card Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "licence_id",
+   "fieldtype": "Int",
+   "label": "Licence ID"
+  },
+  {
+   "fieldname": "electronic_signature",
+   "fieldtype": "Signature",
+   "label": "Electronic Signature"
+  },
+  {
+   "fieldname": "personal_details",
+   "fieldtype": "Heading",
+   "label": "Personal Details"
+  },
+  {
+   "fieldname": "middle_name",
+   "fieldtype": "Data",
+   "label": "Middle Name"
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Last Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Int",
+   "label": "Age",
+   "read_only": 1
+  },
+  {
+   "fieldname": "quota",
+   "fieldtype": "Data",
+   "label": "Quota"
+  },
+  {
+   "fieldname": "documents_upload",
+   "fieldtype": "Heading",
+   "label": "Documents Upload"
+  },
+  {
+   "fieldname": "adhar_card",
+   "fieldtype": "Attach",
+   "label": "Adhar Card"
+  },
+  {
+   "fieldname": "birth_certificate",
+   "fieldtype": "Data",
+   "label": "Birth Certificate"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-29 17:19:13.028594",
+ "modified_by": "Administrator",
+ "module": "Cyclist",
+ "name": "Registration",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
