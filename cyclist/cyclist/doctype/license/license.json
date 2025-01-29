@@ -1,0 +1,236 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-29 15:50:45.104705",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_ehl8",
+  "amended_from",
+  "license_id",
+  "cyclist_id",
+  "license_type",
+  "application_date",
+  "issue_date",
+  "license_validity",
+  "column_break_ung4",
+  "full_name",
+  "gender",
+  "age",
+  "aadhaar_number",
+  "passport_size_photograph",
+  "birth_certificate",
+  "aadhaar_card",
+  "section_break_ysap",
+  "cycling_category",
+  "current_competition_level",
+  "team_name_if_applicable",
+  "previous_championship_participation",
+  "section_break_ksht",
+  "medical_fitness_certificate",
+  "doping_test_clearance",
+  "medical_conditions_if_any",
+  "parental_consent_if_under_18",
+  "section_break_dzcx",
+  "i_agree_to_abide_by_the_regulations"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ehl8",
+   "fieldtype": "Section Break",
+   "label": "Personal and License Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "License",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "license_id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "License ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cyclist_id",
+   "fieldtype": "Data",
+   "label": "Cyclist ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "aadhaar_number",
+   "fieldtype": "Data",
+   "label": "Aadhaar Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "passport_size_photograph",
+   "fieldtype": "Attach Image",
+   "label": "Passport Size Photograph",
+   "read_only": 1
+  },
+  {
+   "fieldname": "birth_certificate",
+   "fieldtype": "Attach",
+   "label": "Birth Certificate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "medical_fitness_certificate",
+   "fieldtype": "Attach",
+   "label": "Medical Fitness Certificate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "aadhaar_card",
+   "fieldtype": "Attach",
+   "label": "Aadhaar Card",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Date",
+   "label": "Gender",
+   "read_only": 1
+  },
+  {
+   "fieldname": "issue_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Issue Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "license_type",
+   "fieldtype": "Select",
+   "label": "License Type",
+   "options": "Amateur\nProfessional\nJunior\nElite"
+  },
+  {
+   "fieldname": "application_date",
+   "fieldtype": "Data",
+   "label": "Application date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "license_validity",
+   "fieldtype": "Select",
+   "label": "License Validity",
+   "options": "1 year\n2 years\n3 years"
+  },
+  {
+   "fieldname": "cycling_category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Cycling Category",
+   "options": "Road\nTrack\nMountain\nFreestyle",
+   "reqd": 1
+  },
+  {
+   "fieldname": "current_competition_level",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Current Competition Level",
+   "options": "District\nState\nNational",
+   "reqd": 1
+  },
+  {
+   "fieldname": "team_name_if_applicable",
+   "fieldtype": "Data",
+   "label": "Team Name (If Applicable)"
+  },
+  {
+   "fieldname": "medical_conditions_if_any",
+   "fieldtype": "Text",
+   "label": "Medical Conditions (if any)"
+  },
+  {
+   "default": "0",
+   "fieldname": "i_agree_to_abide_by_the_regulations",
+   "fieldtype": "Check",
+   "label": "I agree to abide by the regulations."
+  },
+  {
+   "fieldname": "parental_consent_if_under_18",
+   "fieldtype": "Attach",
+   "label": "Parental Consent (if under 18)",
+   "mandatory_depends_on": "eval:doc.age < 18"
+  },
+  {
+   "fieldname": "doping_test_clearance",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "Doping Test Clearance",
+   "reqd": 1
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Int",
+   "label": "Age",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ung4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ysap",
+   "fieldtype": "Section Break",
+   "label": "Competition and Experience Details"
+  },
+  {
+   "fieldname": "section_break_ksht",
+   "fieldtype": "Section Break",
+   "label": "Medical Details and Approvals"
+  },
+  {
+   "fieldname": "section_break_dzcx",
+   "fieldtype": "Section Break",
+   "label": "Terms and Conditions"
+  },
+  {
+   "fieldname": "previous_championship_participation",
+   "fieldtype": "Table",
+   "label": "Previous Championship Participation",
+   "options": "Previous Championship Participation"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-01-29 17:24:03.317210",
+ "modified_by": "Administrator",
+ "module": "Cyclist",
+ "name": "License",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
