@@ -15,8 +15,8 @@
   "end_date",
   "event",
   "route",
-  "naming_series",
-  "is_published"
+  "is_published",
+  "naming_series"
  ],
  "fields": [
   {

@@ -1,0 +1,87 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-29 17:11:13.957201",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_dgr2",
+  "championship_name",
+  "level_of_championship",
+  "year_of_participation",
+  "category",
+  "position_achieved",
+  "points_earned",
+  "certificate"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_dgr2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "championship_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Championship Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "level_of_championship",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Level of Championship",
+   "options": "District\nState\nNational",
+   "reqd": 1
+  },
+  {
+   "fieldname": "year_of_participation",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Year of Participation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Category",
+   "options": "Road\nTrack\nMountain\nFreestyle",
+   "reqd": 1
+  },
+  {
+   "fieldname": "position_achieved",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Position Achieved",
+   "options": "Winner\nRunner-up\nTop 3\nTop 5\nTop 10\nParticipation only",
+   "reqd": 1
+  },
+  {
+   "fieldname": "points_earned",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Points Earned"
+  },
+  {
+   "fieldname": "certificate",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "Certificate",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-01-29 17:56:04.631349",
+ "modified_by": "Administrator",
+ "module": "Cyclist",
+ "name": "Previous Championship Participation",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
