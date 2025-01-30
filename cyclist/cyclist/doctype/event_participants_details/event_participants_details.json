@@ -1,0 +1,85 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-30 10:17:27.351607",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "athlete",
+  "event",
+  "championship",
+  "gender",
+  "age_group",
+  "is_winner",
+  "certificate"
+ ],
+ "fields": [
+  {
+   "fieldname": "athlete",
+   "fieldtype": "Data",
+   "label": "Athlete"
+  },
+  {
+   "fieldname": "event",
+   "fieldtype": "Link",
+   "label": "Event",
+   "options": "Events"
+  },
+  {
+   "fieldname": "championship",
+   "fieldtype": "Link",
+   "label": "Championship",
+   "options": "Championship"
+  },
+  {
+   "fetch_from": "event.category",
+   "fieldname": "gender",
+   "fieldtype": "Data",
+   "label": "Gender",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "event.age_group",
+   "fieldname": "age_group",
+   "fieldtype": "Data",
+   "label": "Age Group"
+  },
+  {
+   "depends_on": "eval:doc.is_winner\n",
+   "fieldname": "certificate",
+   "fieldtype": "Attach",
+   "label": "Certificate"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.is_winner",
+   "fieldname": "is_winner",
+   "fieldtype": "Check",
+   "label": "Is winner"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-30 10:49:50.149041",
+ "modified_by": "Administrator",
+ "module": "Cyclist",
+ "name": "Event participants Details",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
