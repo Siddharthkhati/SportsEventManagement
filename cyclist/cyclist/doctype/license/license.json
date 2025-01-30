@@ -13,7 +13,9 @@
   "application_date",
   "issue_date",
   "license_validity",
+  "email",
   "column_break_ung4",
+  "first_name",
   "full_name",
   "gender",
   "age",
@@ -205,12 +207,23 @@
    "fieldtype": "Table",
    "label": "Previous Championship Participation",
    "options": "Previous Championship Participation"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-30 10:31:11.527404",
+ "modified": "2025-01-30 12:37:05.345890",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "License",

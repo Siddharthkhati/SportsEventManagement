@@ -1,0 +1,30 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2025-01-30 12:09:54.833609",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "License",
+ "enabled": 1,
+ "event": "Save",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "<p>Dear {{ doc.first_name }},</p>\n\n<p>\n    {% if doc.license_id %}\n        <p>\ud83c\udf89 Your License ID: {{ doc.license_id }}</p>\n    {% endif %}\n</p>\n\n<p>Your License has reached the following status</p>\n\n<p>\ud83d\ude80 <strong>Status Update: {{ doc.workflow_state }}</strong></p>\n\n<p>\ud83d\udccb <strong>Details:</strong></p>\n\n<ul>\n    <li><strong>\ud83d\udcc5 Status:</strong> {{ doc.workflow_state }}</li>\n\n    {% if doc.license_id %}\n        <li><strong>\u23f3 Approval Date:</strong> {{ doc.issue_date }}</li> \n    {% endif %}\n\n</ul>\n\n<p>{% if doc.workflow_state == \"Approved at District Level\" %}\n    <p>\u2705 Your license has been approved at the District Level! The next step is State-level approval. Stay tuned! \ud83d\ude80</p>\n\n<p>{% elif doc.workflow_state == \"Approved at State Level\" %}\n    <p>\ud83c\udfc5 Your license has successfully passed the State Level approval! The next exciting step is National-level approval! \ud83c\udf0d</p>\n\n<p>{% elif doc.workflow_state == \"Approved at National Level\" %}\n    <p>\ud83c\udf89\ud83c\udf89 Congratulations! Your license has been <strong>Approved</strong> and is now active! \ud83c\udfc6\ud83d\ude80</p>\n\n<p>{% else %}\n    <p>Your license is currently in progress. We\u2019ll keep you updated once it reaches the next approval stage! \ud83d\udd04</p>\n\n<p>{% endif %}</p></p></p></p></p>\n\n<p>Best Regards, <br><strong>Management Team</strong> <br> pedalleague.management@gmail.com \u2728</p>\n",
+ "message_type": "Markdown",
+ "modified": "2025-01-30 12:43:50.334467",
+ "modified_by": "Administrator",
+ "module": "Cyclist",
+ "name": "License Approval Status",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "email"
+  }
+ ],
+ "send_system_notification": 1,
+ "send_to_all_assignees": 0,
+ "sender": "Pedal League",
+ "sender_email": "pedalleague.management@gmail.com",
+ "subject": "{{ doc.first_name }} Your License has been {{ doc.workflow_state }}"
+}
