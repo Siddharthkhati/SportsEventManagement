@@ -40,6 +40,11 @@
 // });
 
 frappe.ready(function () {
+
+    frappe.web_form.after_save = function(doc) {
+        let redirectUrl = `/cyclist_doc/{{ doc.name }}`;
+        window.location.href = redirectUrl;
+    };
     // Inject Google Fonts
     let fontLink = document.createElement("link");
     fontLink.href = "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap";
@@ -239,6 +244,7 @@ frappe.ready(function () {
         ctx.beginPath();
         ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
     });
+
 });
 
 
