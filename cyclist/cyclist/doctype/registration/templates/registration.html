@@ -1,0 +1,176 @@
+<!-- registration.html -->
+
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="container py-5">
+  <!-- Profile Section -->
+  <div class="row justify-content-center">
+    <!-- Left: Profile Picture -->
+    <div class="col-md-3 d-flex flex-column align-items-center">
+      <div 
+        class="rounded-circle shadow-lg border" 
+        style="width: 150px; height: 150px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);"
+      >
+        <img 
+          src="{{ doc.passport_size_photograph }}" 
+          alt="Profile Image" 
+          class="img-fluid" 
+          style="width: 100%; height: 100%; object-fit: cover;"
+        />
+      </div>
+      <h2 class="mt-3 text-primary text-center" style="font-weight: 600;">{{ doc.full_name }}</h2>
+      <p class="text-muted text-center" style="font-size: 0.9rem;">Record ID: {{ doc.name }}</p>
+    </div>
+
+    <!-- Right: Details Section -->
+    <div class="col-md-7">
+      <div class="card shadow-sm border-0 p-4">
+        <h4 class="text-primary mb-4">Personal Information</h4>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <p>
+              <strong>First Name:</strong>
+              <input 
+                type="text" 
+                class="form-control form-control-sm" 
+                id="first_name" 
+                value="{{ doc.name1 }}" 
+                placeholder="Enter First Name"
+              />
+            </p>
+            <p>
+              <strong>Middle Name:</strong>
+              <input 
+                type="text" 
+                class="form-control form-control-sm" 
+                id="middle_name" 
+                value="{{ doc.middle_name }}" 
+                placeholder="Enter Middle Name"
+              />
+            </p>
+            <p>
+              <strong>Last Name:</strong>
+              <input 
+                type="text" 
+                class="form-control form-control-sm" 
+                id="last_name" 
+                value="{{ doc.last_name }}" 
+                placeholder="Enter Last Name"
+              />
+            </p>
+          </div>
+          <div class="col-md-6">
+            <p>
+              <strong>Date of Birth:</strong> {{ doc.dob }}
+            </p>
+            <p>
+              <strong>Age:</strong> {{ doc.age }}
+            </p>
+            <p>
+              <strong>Gender:</strong>
+              <select id="gender" class="form-select form-select-sm">
+                <option value="Male" {% if doc.gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if doc.gender == 'Female' %}selected{% endif %}>Female</option>
+                <option value="Other" {% if doc.gender == 'Other' %}selected{% endif %}>Other</option>
+              </select>
+            </p>
+          </div>
+        </div>
+
+        <h4 class="text-primary mb-4">Contact Details</h4>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <p><strong>Phone Number:</strong> {{ doc.phone_number }}</p>
+            <p><strong>Email:</strong> {{ doc.email }}</p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Adhar Card Number:</strong> {{ doc.adhar_card_number }}</p>
+            <p><strong>Quota:</strong> {{ doc.quota }}</p>
+          </div>
+        </div>
+
+        <h4 class="text-primary mb-4">Documents</h4>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <p>
+              <strong>Adhar Card:</strong>
+              {% if doc.adhar_card %}
+                <a href="{{ doc.adhar_card }}" target="_blank" class="text-decoration-none">View/Download</a>
+              {% else %}
+                <span class="text-muted">Not Uploaded</span>
+              {% endif %}
+            </p>
+            <p>
+              <strong>Medical Certificate:</strong>
+              {% if doc.medical_certificate %}
+                <a href="{{ doc.medical_certificate }}" target="_blank" class="text-decoration-none">View/Download</a>
+              {% else %}
+                <span class="text-muted">Not Uploaded</span>
+              {% endif %}
+            </p>
+          </div>
+          <div class="col-md-6">
+            <p>
+              <strong>Birth Certificate:</strong>
+              {% if doc.birth_certificate %}
+                <a href="{{ doc.birth_certificate }}" target="_blank" class="text-decoration-none">View/Download</a>
+              {% else %}
+                <span class="text-muted">Not Uploaded</span>
+              {% endif %}
+            </p>
+            <p>
+              <strong>Electronic Signature:</strong>
+              {% if doc.electronic_signature %}
+                <a href="{{ doc.electronic_signature }}" target="_blank" class="text-decoration-none">View/Download</a>
+              {% else %}
+                <span class="text-muted">Not Uploaded</span>
+              {% endif %}
+            </p>
+          </div>
+        </div>
+
+        <h4 class="text-primary mb-4">Additional Information</h4>
+        <p><strong>License ID:</strong> {{ doc.licence_id }}</p>        
+        <button class="btn btn-primary btn-sm mt-3" id="save_changes" onclick="updateRegistration()">Save Changes</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    function updateRegistration() {
+        // const docname = 'Registration'; 
+        const urlParts = window.location.pathname.split("/");
+        const docname = urlParts[urlParts.length - 1]; // 
+        const first_name = document.getElementById('first_name').value;
+        const middle_name = document.getElementById('middle_name').value;
+        const last_name = document.getElementById('last_name').value;
+        const genderElement = document.getElementById('gender');
+    const gender = genderElement.value;
+        frappe.call({
+            method: 'cyclist.api.update_registration',
+            args: {
+                docname: docname,
+                first_name:first_name,
+                middle_name: middle_name,
+                last_name: last_name,
+                gender: gender
+
+            },
+            callback: function(response) {
+              console.log(response.message)
+                if (response.message.status === 'success') {
+                    frappe.msgprint(__('Registration updated successfully.'));
+                } else {
+                    frappe.msgprint(__('Error updating registration: ') + response.message.message);
+                }
+            }
+        });
+    }
+</script>
+
+
+
+{% endblock %}

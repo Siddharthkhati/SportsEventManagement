@@ -1,7 +1,8 @@
 {
  "actions": [],
+ "allow_guest_to_view": 1,
  "allow_rename": 1,
- "autoname": "CYC-.YYYY-.####",
+ "autoname": "CYC-.####",
  "creation": "2025-01-29 15:52:39.725487",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -17,6 +18,7 @@
   "phone_number",
   "adhar_card_number",
   "email",
+  "password",
   "quota",
   "licence_id",
   "column_break_towr",
@@ -25,7 +27,9 @@
   "passport_size_photograph",
   "medical_certificate",
   "birth_certificate",
-  "electronic_signature"
+  "electronic_signature",
+  "route",
+  "is_published"
  ],
  "fields": [
   {
@@ -138,11 +142,33 @@
    "fieldname": "birth_certificate",
    "fieldtype": "Data",
    "label": "Birth Certificate"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "label": "Is Published"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Password",
+   "label": "Password"
   }
  ],
+ "has_web_view": 1,
  "index_web_pages_for_search": 1,
+ "is_published_field": "is_published",
  "links": [],
+<<<<<<< Updated upstream
  "modified": "2025-01-30 11:18:48.092178",
+=======
+ "modified": "2025-01-30 14:17:24.456487",
+>>>>>>> Stashed changes
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Registration",
@@ -162,6 +188,7 @@
    "write": 1
   }
  ],
+ "route": "cyclist_doc",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
