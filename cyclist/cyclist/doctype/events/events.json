@@ -1,6 +1,9 @@
 {
  "actions": [],
+ "allow_guest_to_view": 1,
+ "allow_import": 1,
  "allow_rename": 1,
+ "autoname": "field:event_name",
  "creation": "2025-01-29 15:48:43.208630",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -9,20 +12,31 @@
   "event_name",
   "championship",
   "event_type",
-  "age_group",
+  "distance",
+  "event_date",
+  "event_status",
+  "event_category_section",
   "category",
-  "maximum_slots"
+  "age_group",
+  "maximum_slots",
+  "results_section",
+  "results_published",
+  "winner",
+  "route",
+  "is_published"
  ],
  "fields": [
   {
    "fieldname": "event_name",
    "fieldtype": "Data",
-   "label": "Event Name "
+   "label": "Event Name ",
+   "unique": 1
   },
   {
    "fieldname": "championship",
-   "fieldtype": "Data",
-   "label": "Championship"
+   "fieldtype": "Link",
+   "label": "Championship",
+   "options": "Championship"
   },
   {
    "fieldname": "event_type",
@@ -39,7 +53,7 @@
   {
    "fieldname": "category",
    "fieldtype": "Select",
-   "label": "Category",
+   "label": "Gender",
    "options": "Male\nFemale"
   },
   {
@@ -53,14 +67,67 @@
    "fieldname": "event_details_section",
    "fieldtype": "Section Break",
    "label": "Event Details"
+  },
+  {
+   "fieldname": "distance",
+   "fieldtype": "Select",
+   "label": "Distance",
+   "options": "10 Km\n20 Km\n50 Km\n100 Km"
+  },
+  {
+   "fieldname": "event_category_section",
+   "fieldtype": "Section Break",
+   "label": "Event Category"
+  },
+  {
+   "fieldname": "event_date",
+   "fieldtype": "Datetime",
+   "label": "Event Date"
+  },
+  {
+   "fieldname": "event_status",
+   "fieldtype": "Select",
+   "label": "Event Status",
+   "options": "Scheduled\nActive\nCompleted"
+  },
+  {
+   "fieldname": "results_section",
+   "fieldtype": "Section Break",
+   "label": "Results"
+  },
+  {
+   "default": "0",
+   "fieldname": "results_published",
+   "fieldtype": "Check",
+   "label": "Results Published"
+  },
+  {
+   "depends_on": "eval:doc.results_published\n",
+   "fieldname": "winner",
+   "fieldtype": "Data",
+   "label": "Winner"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "label": "is published"
   }
  ],
+ "has_web_view": 1,
  "index_web_pages_for_search": 1,
+ "is_published_field": "is_published",
  "links": [],
- "modified": "2025-01-29 16:09:17.514422",
+ "modified": "2025-01-29 17:52:32.917079",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Events",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -76,6 +143,7 @@
    "write": 1
   }
  ],
+ "route": "events",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
