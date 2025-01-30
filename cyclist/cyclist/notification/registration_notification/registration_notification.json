@@ -1,0 +1,30 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2025-01-30 10:26:36.776497",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Registration",
+ "enabled": 1,
+ "event": "Save",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "<h3>\ud83c\udf89 Registration Successful! \ud83c\udf89</h3>\n\n<p>Dear {{ doc.name1 }},</p>\n\n<p>We are thrilled to confirm that your registration for the <strong>Cyclist Event</strong> has been successfully completed! \ud83d\udeb4\u200d\u2642\ufe0f</p>\n\n<p>Thank you for joining us. We can\u2019t wait to see you at the event and be a part of an amazing experience together.</p>\n\n<p><!-- Show last comment if available -->\n{% if comments %}</p>\n\n<p><strong>Last comment:</strong> {{ comments[-1].comment }} by {{ comments[-1].by }}</p>\n\n<p>{% endif %}</p>\n\n<p>Stay tuned for further updates, and if you have any questions, feel free to reach out.</p>\n\n<p>See you soon! \ud83d\udc4f</p>\n",
+ "message_type": "Markdown",
+ "modified": "2025-01-30 11:31:05.684568",
+ "modified_by": "Administrator",
+ "module": "Cyclist",
+ "name": "Registration Notification",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "email"
+  }
+ ],
+ "send_system_notification": 1,
+ "send_to_all_assignees": 0,
+ "sender": "Sports Academy",
+ "sender_email": "academysports61@gmail.com",
+ "subject": "Thank You for Registering {{ doc.full_name }}"
+}
