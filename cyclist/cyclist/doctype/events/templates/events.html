@@ -1,7 +1,102 @@
 {% extends "templates/web.html" %}
 
 {% block page_content %}
-<h1>{{ title }}</h1>
-{% endblock %}
+<div class="container py-5">
+    <h1 class="text-center text-primary">Event Details</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 p-4">
+                
+                <p><strong>Event Name:</strong> {{ doc.event_name }}</p>
+                <p><strong>Championship:</strong> {{ doc.championship }}</p>
+                <p><strong>Type:</strong> {{ doc.event_type }}</p>
+                <p><strong>Distance:</strong> {{ doc.distance }}</p>
+                <p><strong>Date:</strong> {{ doc.event_date }}</p>
+                <p><strong>Status:</strong> {{ doc.event_status }}</p>
+                <p><strong>Category:</strong> {{ doc.category }}</p>
+                <p><strong>Age Group:</strong> {{ doc.age_group }}</p>
+                <p><strong>Maximum Slots:</strong> {{ doc.maximum_slots }}</p>
+                <p><strong>Event Starts In:</strong> <span id="countdown"></span></p>
 
-<!-- this is a sample default web page template -->
+                {% if doc.results_published %}
+                    <h3 class="mt-4 text-primary">Event Results</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Participant</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in doc.results %}
+                                <tr>
+                                    <td>{{ result.rank }}</td>
+                                    <td>{{ result.participant }}</td>
+                                    <td>{{ result.time }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+
+                <button class="btn btn-primary mt-3" onclick="registerForEvent()">Register Now</button>
+
+                
+                <div class="d-flex justify-content-between">
+                    <a href="https://twitter.com/intent/tweet?text=Join%20{{ doc.event_name }}%20on%20{{ doc.event_date }}" target="_blank" class="btn btn-outline-info d-flex align-items-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Twitter_Logo_2012.png/1200px-Twitter_Logo_2012.png" alt="Twitter" style="width: 20px; height: 20px; margin-right: 8px;">Share on Twitter
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ frappe.utils.get_url() }}/events/{{ doc.name }}" target="_blank" class="btn btn-outline-primary d-flex align-items-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1024px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook" style="width: 20px; height: 20px; margin-right: 8px;"> Share on Facebook
+                    </a>
+                    <a href="https://api.whatsapp.com/send?text=Join%20{{ doc.event_name }}%20on%20{{ doc.event_date }}%20-%20{{ frappe.utils.get_url() }}/events/{{ doc.name }}" target="_blank" class="btn btn-outline-success d-flex align-items-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1024px-WhatsApp.svg.png" alt="WhatsApp" style="width: 20px; height: 20px; margin-right: 8px;"> Share on WhatsApp
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateCountdown() {
+        let eventDate = new Date("{{ doc.event_date }}").getTime();
+        let now = new Date().getTime();
+        let timeLeft = eventDate - now;
+
+        let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+        if (timeLeft < 0) {
+            document.getElementById("countdown").innerHTML = "Event Started!";
+        } else {
+            setTimeout(updateCountdown, 1000);
+        }
+    }
+    updateCountdown();
+
+    function registerForEvent() {
+        frappe.call({
+            method: 'cyclist.api.register_for_event',
+            args: {
+                event_name: "{{ doc.event_name }}",
+                user: frappe.session.user
+            },
+            callback: function(response) {
+                if (response.message.status === 'success') {
+                    frappe.msgprint(__('Successfully Registered!'));
+                } else {
+                    frappe.msgprint(__('Registration Failed!'));
+                }
+            }
+        });
+    }
+</script>
+
+{% endblock %}
