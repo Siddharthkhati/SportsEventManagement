@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_guest_to_view": 1,
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:name_of_championship",
  "creation": "2025-01-29 15:20:38.642332",
@@ -13,6 +14,7 @@
   "championship_level",
   "location",
   "date",
+  "end_date",
   "event",
   "description",
   "image",
@@ -76,12 +78,17 @@
   {
    "fieldname": "date",
    "fieldtype": "Date",
-   "label": "Date"
+   "label": "Start Date"
   },
   {
    "fieldname": "image",
    "fieldtype": "Attach Image",
    "label": "Image"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
   }
  ],
  "has_web_view": 1,
@@ -89,7 +96,7 @@
  "is_published_field": "is_published",
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-30 16:17:57.237744",
+ "modified": "2025-01-31 10:29:46.977928",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Championship",
