@@ -1,50 +1,27 @@
-// frappe.ready(function() {
-
-//     // Auto-generate Full Name when First Name or Last Name changes
-//     frappe.web_form.on('name1', (field, value) => {
-//         update_full_name();
-//     });
-// 	frappe.web_form.on('middle_name', (field, value) => {
-//         update_full_name();
-//     });
-
-//     frappe.web_form.on('last_name', (field, value) => {
-//         update_full_name();
-//     });
-
-//     // Function to update full name in real time
-//     function update_full_name() {
-//         let first_name = frappe.web_form.get_value('name1') || "";
-// 		let middle_name = frappe.web_form.get_value('middle_name') || "";
-//         let last_name = frappe.web_form.get_value('last_name') || "";
-//         let full_name = (first_name + " " + middle_name + " " + last_name).trim();  // Trim to avoid unnecessary spaces
-//         frappe.web_form.set_value('full_name', full_name);
-//     }
-
-//     // Auto-calculate Age when DOB is entered (can also trigger real-time)
-//     frappe.web_form.on('dob', (field, value) => {
-//         if (value) {
-//             let dob = new Date(value);
-//             let today = new Date();
-//             let age = today.getFullYear() - dob.getFullYear();
-//             let monthDiff = today.getMonth() - dob.getMonth();
-
-//             if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
-//                 age--;
-//             }
-
-//             frappe.web_form.set_value('age', age);
-//         }
-//     });
-
-// });
+// created by yashvi
 
 frappe.ready(function () {
 
-    frappe.web_form.after_save = function(doc) {
-        let redirectUrl = `/cyclist_doc/{{ doc.name }}`;
-        window.location.href = redirectUrl;
+    frappe.web_form.after_save = () => {
+        frappe.call({
+            method: "frappe.client.get_list",
+            args: {
+                doctype: "Registration",
+                order_by: "modified desc",
+                limit_page_length: 1
+            },
+            callback: function (response) {
+                if (response.message.length > 0) {
+                    let docName = response.message[0].name;
+                    console.log("✅ Latest Document Name:", docName);
+                    window.location.href = `/cyclist_doc/${docName}`; // Redirect after saving
+                } else {
+                    console.error("❌ No document found.");
+                }
+            }
+        });
     };
+    
     // Inject Google Fonts
     let fontLink = document.createElement("link");
     fontLink.href = "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap";
@@ -59,7 +36,7 @@ frappe.ready(function () {
             margin: 0;
             padding: 0;
             color: #444;
-            background: url('https://previews.123rf.com/images/kannaa123rf/kannaa123rf1612/kannaa123rf161200160/67876091-retro-bike-seamless-pattern-vector-illustration-for-bicycle-transport-design-bright-vehicle.jpg') center center;
+            background: #e3f2fd;
             background-size: cover;
             background-attachment: fixed;
         }
@@ -116,7 +93,6 @@ frappe.ready(function () {
         .form-group textarea {
             padding: 12px;
             font-size: 16px;
-            border: 2px solid #2575fc;
             border-radius: 10px;
             transition: all 0.3s ease-in-out;
             background: #f9f9f9;
