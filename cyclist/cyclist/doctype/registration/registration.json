@@ -164,11 +164,8 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "is_published",
  "links": [],
-<<<<<<< Updated upstream
- "modified": "2025-01-30 11:18:48.092178",
-=======
+
  "modified": "2025-01-30 14:17:24.456487",
->>>>>>> Stashed changes
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Registration",
