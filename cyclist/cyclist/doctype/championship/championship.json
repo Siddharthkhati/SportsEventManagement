@@ -1,7 +1,8 @@
 {
  "actions": [],
+ "allow_guest_to_view": 1,
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "field:name_of_championship",
  "creation": "2025-01-29 15:20:38.642332",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -11,12 +12,12 @@
   "name_of_championship",
   "championship_level",
   "location",
-  "start_date",
-  "end_date",
+  "date",
   "event",
+  "description",
+  "image",
   "route",
-  "is_published",
-  "naming_series"
+  "is_published"
  ],
  "fields": [
   {
@@ -37,7 +38,8 @@
   {
    "fieldname": "name_of_championship",
    "fieldtype": "Data",
-   "label": "Name of Championship"
+   "label": "Name of Championship",
+   "unique": 1
   },
   {
    "fieldname": "championship_level",
@@ -49,16 +51,6 @@
    "fieldname": "location",
    "fieldtype": "Data",
    "label": "Location"
-  },
-  {
-   "fieldname": "start_date",
-   "fieldtype": "Date",
-   "label": "Start Date"
-  },
-  {
-   "fieldname": "end_date",
-   "fieldtype": "Date",
-   "label": "End Date"
   },
   {
    "fieldname": "event",
@@ -77,10 +69,19 @@
    "label": "Is Published"
   },
   {
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "label": "Naming Series",
-   "options": "CH-.####"
+   "fieldname": "description",
+   "fieldtype": "Long Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
   }
  ],
  "has_web_view": 1,
@@ -88,11 +89,12 @@
  "is_published_field": "is_published",
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-30 14:40:36.730050",
+
+ "modified": "2025-01-30 16:17:57.237744",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Championship",
- "naming_rule": "By \"Naming Series\" field",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -109,7 +111,7 @@
    "write": 1
   }
  ],
- "route": "championship",
+ "route": "championships",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
