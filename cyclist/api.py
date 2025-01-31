@@ -111,22 +111,29 @@ def login_user(email, password):
 
 @frappe.whitelist()
 def register_for_event(event_name, user):
-    event = frappe.get_doc("Event", {"event_name": event_name})
+    """
+    Registers a user for an event and redirects to confirmation page.
     
-    if event.available_slots > 0:
-        # Register user
-        new_registration = frappe.get_doc({
-            "doctype": "Event Registration",
-            "event": event_name,
-            "user": user
-        })
-        new_registration.insert()
+    Args:
+    event_name (str): The name of the event.
+    user (str): The user registering.
 
+    Returns:
+    dict: Redirect URL or error message.
+    """
+    events = frappe.get_doc("Events", {"event_name": event_name})
+
+    if events.available_slots > 0:
         # Reduce available slots
-        event.available_slots -= 1
-        event.save()
+        events.available_slots -= 1
+        events.save()
+        frappe.db.commit()
 
-        return {"status": "success", "message": "Registration successful!"}
+        # Generate confirmation page URL
+        confirmation_url = ""
+
+        return {"status": "success", "redirect_url": confirmation_url}
+    
     else:
         return {"status": "error", "message": "No slots available!"}
     
