@@ -2,6 +2,7 @@
 
 import frappe
 
+
 @frappe.whitelist()
 def get_cyclist_details(cyclist_id):
     cyclist = frappe.get_doc("Registration", cyclist_id)
