@@ -10,15 +10,18 @@
  "field_order": [
   "event_details_section",
   "event_name",
+  "image",
   "championship",
   "event_type",
   "distance",
   "event_date",
   "event_status",
+  "athlete_name",
+  "email",
   "event_category_section",
   "category",
   "age_group",
-  "maximum_slots",
+  "available_slots",
   "results_section",
   "results_published",
   "winner",
@@ -55,13 +58,6 @@
    "fieldtype": "Select",
    "label": "Gender",
    "options": "Male\nFemale"
-  },
-  {
-   "default": "10",
-   "fieldname": "maximum_slots",
-   "fieldtype": "Int",
-   "label": "Maximum Slots",
-   "non_negative": 1
   },
   {
    "fieldname": "event_details_section",
@@ -117,13 +113,38 @@
    "fieldname": "is_published",
    "fieldtype": "Check",
    "label": "is published"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "athlete_name",
+   "fieldtype": "Link",
+   "label": "Athlete Name",
+   "options": "Registration"
+  },
+  {
+   "fetch_from": "athlete_name.email",
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "default": "10",
+   "fieldname": "available_slots",
+   "fieldtype": "Int",
+   "label": "Available Slots",
+   "non_negative": 1
   }
  ],
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "is_published_field": "is_published",
  "links": [],
- "modified": "2025-01-29 17:52:32.917079",
+ "modified": "2025-01-31 15:24:17.631670",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Events",
