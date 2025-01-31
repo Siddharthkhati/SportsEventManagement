@@ -42,7 +42,8 @@
   {
    "fieldname": "dob",
    "fieldtype": "Date",
-   "label": "DOB"
+   "label": "DOB",
+   "reqd": 1
   },
   {
    "fieldname": "gender",
@@ -70,16 +71,18 @@
   {
    "fieldname": "passport_size_photograph",
    "fieldtype": "Attach Image",
-   "label": "Passport Size Photograph"
+   "label": "Passport Size Photograph",
+   "reqd": 1
   },
   {
    "fieldname": "medical_certificate",
    "fieldtype": "Attach",
-   "label": "Medical Certificate"
+   "label": "Medical Certificate",
+   "reqd": 1
   },
   {
    "fieldname": "adhar_card_number",
-   "fieldtype": "Int",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Adhar Card Number",
    "reqd": 1
@@ -125,8 +128,9 @@
   },
   {
    "fieldname": "quota",
-   "fieldtype": "Data",
-   "label": "Quota"
+   "fieldtype": "Select",
+   "label": "Quota",
+   "options": "Home State\nOther State"
   },
   {
    "fieldname": "documents_upload",
@@ -136,12 +140,14 @@
   {
    "fieldname": "adhar_card",
    "fieldtype": "Attach",
-   "label": "Adhar Card"
+   "label": "Adhar Card",
+   "reqd": 1
   },
   {
    "fieldname": "birth_certificate",
    "fieldtype": "Attach",
-   "label": "Birth Certificate"
+   "label": "Birth Certificate",
+   "reqd": 1
   },
   {
    "fieldname": "route",
@@ -157,14 +163,14 @@
   {
    "fieldname": "password",
    "fieldtype": "Password",
-   "label": "Password"
+   "label": "Generate Password"
   }
  ],
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "is_published_field": "is_published",
  "links": [],
- "modified": "2025-01-30 16:29:40.717086",
+ "modified": "2025-01-31 10:29:54.703336",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Registration",

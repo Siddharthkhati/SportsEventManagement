@@ -1,9 +1,17 @@
 <!-- registration.html -->
+<!-- created by Yashvi -->
 
 {% extends "templates/web.html" %}
 
 {% block page_content %}
 <div class="container py-5">
+
+  <!-- Top Right Buttons -->
+  <div class="d-flex justify-content-end mb-3">
+    <a href="/new-license/new?licence_id={{ licence_id }}" class="btn btn-danger me-2" id="renew_license_btn">Renew License</a>
+    &nbsp;
+    <a href="/new-license/new?name={{ name }}" class="btn btn-danger">Apply License</a>
+  </div>
   <!-- Profile Section -->
   <div class="row justify-content-center">
     <!-- Left: Profile Picture -->
@@ -140,6 +148,17 @@
 </div>
 
 <script>
+  document.getElementById("renew_license_btn").addEventListener("click", function(event) {
+    var licenceId = "{{ doc.licence_id | default(0) }}"; // Ensure it's a valid number
+
+    if (!licenceId || licenceId === "0") {
+      event.preventDefault();
+      alert("Apply for a license first.");
+    } else {
+      window.location.href = "/new-license/new?licence_id=" + licenceId;
+    }
+  });
+
     function updateRegistration() {
         // const docname = 'Registration'; 
         const urlParts = window.location.pathname.split("/");

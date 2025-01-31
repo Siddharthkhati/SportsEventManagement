@@ -7,6 +7,8 @@
 // 	},
 // });
 
+// created by yashvi and ritika
+
 frappe.ui.form.on('Registration', {
     dob: function(frm) {
         if (frm.doc.dob) {
