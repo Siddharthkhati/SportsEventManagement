@@ -140,7 +140,7 @@
   },
   {
    "fieldname": "birth_certificate",
-   "fieldtype": "Data",
+   "fieldtype": "Attach",
    "label": "Birth Certificate"
   },
   {
@@ -164,8 +164,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "is_published",
  "links": [],
-
- "modified": "2025-01-30 14:17:24.456487",
+ "modified": "2025-01-30 16:29:40.717086",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Registration",
