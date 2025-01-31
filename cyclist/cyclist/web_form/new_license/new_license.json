@@ -18,7 +18,7 @@
  "list_columns": [],
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2025-01-29 18:07:01.489549",
+ "modified": "2025-01-30 16:45:51.544305",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "new-license",
@@ -98,6 +98,20 @@
   },
   {
    "allow_read_on_all_link_options": 0,
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "hidden": 0,
+   "label": "Email",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "Email",
+   "precision": "",
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
    "fieldname": "aadhaar_number",
    "fieldtype": "Data",
    "hidden": 0,
@@ -169,7 +183,7 @@
    "max_length": 0,
    "max_value": 0,
    "precision": "",
-   "read_only": 1,
+   "read_only": 0,
    "reqd": 0,
    "show_in_filter": 0
   },
