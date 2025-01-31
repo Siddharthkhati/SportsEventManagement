@@ -61,49 +61,56 @@
   },
   {
    "fieldname": "cyclist_id",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "label": "Cyclist ID",
-   "read_only": 1
+   "options": "Registration"
   },
   {
+   "fetch_from": "cyclist_id.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
    "label": "Full Name",
    "read_only": 1
   },
   {
+   "fetch_from": "cyclist_id.adhar_card_number",
    "fieldname": "aadhaar_number",
    "fieldtype": "Data",
    "label": "Aadhaar Number",
    "read_only": 1
   },
   {
+   "fetch_from": "cyclist_id.passport_size_photograph",
    "fieldname": "passport_size_photograph",
    "fieldtype": "Attach Image",
    "label": "Passport Size Photograph",
    "read_only": 1
   },
   {
+   "fetch_from": "cyclist_id.birth_certificate",
    "fieldname": "birth_certificate",
    "fieldtype": "Attach",
    "label": "Birth Certificate",
    "read_only": 1
   },
   {
+   "fetch_from": "cyclist_id.medical_certificate",
    "fieldname": "medical_fitness_certificate",
    "fieldtype": "Attach",
    "label": "Medical Fitness Certificate",
    "read_only": 1
   },
   {
+   "fetch_from": "cyclist_id.adhar_card",
    "fieldname": "aadhaar_card",
    "fieldtype": "Attach",
    "label": "Aadhaar Card",
    "read_only": 1
   },
   {
+   "fetch_from": "cyclist_id.gender",
    "fieldname": "gender",
-   "fieldtype": "Date",
+   "fieldtype": "Data",
    "label": "Gender",
    "read_only": 1
   },
@@ -178,6 +185,7 @@
    "reqd": 1
   },
   {
+   "fetch_from": "cyclist_id.age",
    "fieldname": "age",
    "fieldtype": "Int",
    "label": "Age",
@@ -215,6 +223,7 @@
    "options": "Email"
   },
   {
+   "fetch_from": "cyclist_id.name1",
    "fieldname": "first_name",
    "fieldtype": "Data",
    "label": "First Name"
@@ -223,7 +232,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-30 12:37:05.345890",
+ "modified": "2025-01-30 16:44:45.962579",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "License",
