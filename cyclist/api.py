@@ -130,7 +130,7 @@ def register_for_event(event_name, user):
         frappe.db.commit()
 
         # Generate confirmation page URL
-        confirmation_url = ""
+        confirmation_url = f"/confirmation.html?event_name={event_name}&event_date={events.event_date}"
 
         return {"status": "success", "redirect_url": confirmation_url}
     
