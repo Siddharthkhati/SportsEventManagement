@@ -63,20 +63,20 @@ def update_registration(docname, first_name, middle_name, last_name, gender):
 #         return {"status": "error", "message": str(e)}
 
 
-from frappe.utils.password import check_password
+# from frappe.utils.password import check_password
 
-@frappe.whitelist(allow_guest=True)
-def login_user(email, password):
-    user = frappe.db.get_value("Registration", {"email": email}, ["name", "password"])
+# @frappe.whitelist(allow_guest=True)
+# def login_user(email, password):
+#     user = frappe.db.get_value("Registration", {"email": email}, ["name", "password"])
     
-    if user:
-        user_id, hashed_password = user
-        if check_password(user_id, password):  # Validate password
-            frappe.local.response["type"] = "redirect"
-            frappe.local.response["location"] = "/registration.html"
-            return
+#     if user:
+#         user_id, hashed_password = user
+#         if check_password(user_id, password):  # Validate password
+#             frappe.local.response["type"] = "redirect"
+#             frappe.local.response["location"] = "/registration.html"
+#             return
 
-    return {"status": "failed", "message": "Invalid email or password"}
+#     return {"status": "failed", "message": "Invalid email or password"}
 
 # @frappe.whitelist(allow_guest=True)
 # def send_otp_to_email(email):
