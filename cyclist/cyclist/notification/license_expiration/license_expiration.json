@@ -1,0 +1,31 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2025-01-31 14:46:45.923868",
+ "date_changed": "expiry_date",
+ "days_in_advance": 30,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "License",
+ "enabled": 1,
+ "event": "Days Before",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Dear {{ doc.full_name }},  \n\nYour cycling license ({{ doc.license_id }}) is set to expire on {{ doc.expiry_date }}, just 30 days from now.  \n\nTo continue enjoying uninterrupted participation in cycling events and competitions, please renew your license as soon as possible.  \n\nHow to Renew?  \n1. Log in to your account: [Website Link]  \n2. Navigate to the <strong>License Renewal</strong> section  \n3. Submit the renewal application before {{ doc.expiry_date }}  \n\nIf you have already applied for renewal, please disregard this message. For any queries, contact us at pedalleague.management@gmail.com.  \n\nBest Regards,  \nPedal League \npedalleague.management@gmail.com",
+ "message_type": "Markdown",
+ "modified": "2025-01-31 14:46:45.923868",
+ "modified_by": "Administrator",
+ "module": "Cyclist",
+ "name": "License Expiration",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "email"
+  }
+ ],
+ "send_system_notification": 1,
+ "send_to_all_assignees": 0,
+ "sender": "Pedal League",
+ "sender_email": "pedalleague.management@gmail.com",
+ "subject": "Your Cycling License is Expiring Soon \u2013 Renew Now!"
+}
