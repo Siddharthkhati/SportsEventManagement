@@ -48,66 +48,6 @@ def update_registration(docname, first_name, middle_name, last_name, gender):
         return {"status": "error", "message": str(e)}
 
 
-# @frappe.whitelist(allow_guest=True)  
-# def login_user(email, password):
-#     """Authenticate and log in the user"""
-#     try:
-#         login_manager = LoginManager()
-#         login_manager.authenticate(email, password)
-#         login_manager.login()
-#         return {"status": "success", "message": "Login successful"}
-#     except frappe.AuthenticationError:
-#         return {"status": "error", "message": "Invalid login credentials"}
-#     except Exception as e:
-#         frappe.log_error(f"Login Error: {str(e)}", "User Login")
-#         return {"status": "error", "message": str(e)}
-
-
-from frappe.utils.password import check_password
-
-@frappe.whitelist(allow_guest=True)
-def login_user(email, password):
-    user = frappe.db.get_value("Registration", {"email": email}, ["name", "password"])
-    
-    if user:
-        user_id, hashed_password = user
-        if check_password(user_id, password):  # Validate password
-            frappe.local.response["type"] = "redirect"
-            frappe.local.response["location"] = "/registration.html"
-            return
-
-    return {"status": "failed", "message": "Invalid email or password"}
-
-# @frappe.whitelist(allow_guest=True)
-# def send_otp_to_email(email):
-#     # Check if email exists in the Registration doctype
-#     user = frappe.db.get_value("Registration", {"email": email}, "name")
-#     if user:
-#         # Generate random 6-digit OTP
-#         otp = random.randint(100000, 999999)
-
-#         # Store OTP in a custom doctype or session (to verify later)
-#         frappe.session.user_data = {"otp": otp}
-
-#         # Send OTP to the user's email
-#         subject = "Your OTP for Cyclist Event Login"
-#         message = f"Your OTP is {otp}. Please use it to verify your login."
-#         send_email(recipients=email, subject=subject, message=message)
-
-#         return {"status": "success"}
-#     else:
-#         return {"status": "failed", "message": "Email not found"}
-
-# @frappe.whitelist(allow_guest=True)
-# def verify_otp(email, otp):
-#     # Verify the OTP stored in the session
-#     if frappe.session.user_data.get("otp") == int(otp):
-#         # Reset OTP after successful verification
-#         del frappe.session.user_data["otp"]
-
-#         return {"status": "success"}
-#     else:
-#         return {"status": "failed", "message": "Invalid OTP"}
 
 
 @frappe.whitelist()
@@ -139,21 +79,7 @@ def register_for_event(event_name, user):
         return {"status": "error", "message": "No slots available!"}
     
 
-# @frappe.whitelist(allow_guest=True)
-# def submit_review(event_name, user, review):
-#     try:
-#         # Create a new review document
-#         review_doc = frappe.new_doc('Review')
-#         review_doc.event = event_name
-#         review_doc.user = user
-#         review_doc.review_text = review
-#         review_doc.save()
 
-#         # Return success message
-#         return {"status": "success", "message": "Review Submitted!"}
-    
-#     except Exception as e:
-#         return {"status": "error", "message": "An error occurred while submitting your review."}
     
 
     
