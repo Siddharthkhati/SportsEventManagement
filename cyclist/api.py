@@ -48,6 +48,7 @@ def update_registration(docname, first_name, middle_name, last_name, gender):
         return {"status": "error", "message": str(e)}
 
 
+<<<<<<< Updated upstream
 # @frappe.whitelist(allow_guest=True)  
 # def login_user(email, password):
 #     """Authenticate and log in the user"""
@@ -108,6 +109,8 @@ def update_registration(docname, first_name, middle_name, last_name, gender):
 #         return {"status": "success"}
 #     else:
 #         return {"status": "failed", "message": "Invalid OTP"}
+=======
+>>>>>>> Stashed changes
 
 
 @frappe.whitelist()
@@ -139,21 +142,7 @@ def register_for_event(event_name, user):
         return {"status": "error", "message": "No slots available!"}
     
 
-# @frappe.whitelist(allow_guest=True)
-# def submit_review(event_name, user, review):
-#     try:
-#         # Create a new review document
-#         review_doc = frappe.new_doc('Review')
-#         review_doc.event = event_name
-#         review_doc.user = user
-#         review_doc.review_text = review
-#         review_doc.save()
 
-#         # Return success message
-#         return {"status": "success", "message": "Review Submitted!"}
-    
-#     except Exception as e:
-#         return {"status": "error", "message": "An error occurred while submitting your review."}
     
 
     
