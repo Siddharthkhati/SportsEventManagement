@@ -15,8 +15,9 @@
 <ul>
     <li><strong>📅 Status:</strong> {{ doc.workflow_state }}</li>
 
-    {% if doc.license_id %}
+    {% if doc.workflow_state == "Approved" %}
         <li><strong>⏳ Approval Date:</strong> {{ doc.issue_date }}</li> 
+        <li><strong>⏳ Expiry Date:</strong> {{ doc.expiry_date}}</li> 
     {% endif %}
 
 </ul>
@@ -27,7 +28,7 @@
 <p>{% elif doc.workflow_state == "Approved at State Level" %}
     <p>🏅 Your license has successfully passed the State Level approval! The next exciting step is National-level approval! 🌍</p>
 
-<p>{% elif doc.workflow_state == "Approved at National Level" %}
+<p>{% elif doc.workflow_state == "Approved" %}
     <p>🎉🎉 Congratulations! Your license has been <strong>Approved</strong> and is now active! 🏆🚀</p>
 
 <p>{% else %}

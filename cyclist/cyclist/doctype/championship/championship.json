@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_guest_to_view": 1,
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:name_of_championship",
  "creation": "2025-01-29 15:20:38.642332",
@@ -54,8 +55,9 @@
   },
   {
    "fieldname": "event",
-   "fieldtype": "Data",
-   "label": "Event"
+   "fieldtype": "Table MultiSelect",
+   "label": "Events",
+   "options": "eventchild"
   },
   {
    "fieldname": "route",
@@ -89,8 +91,7 @@
  "is_published_field": "is_published",
  "is_submittable": 1,
  "links": [],
-
- "modified": "2025-01-30 16:17:57.237744",
+ "modified": "2025-02-01 22:24:10.474775",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Championship",

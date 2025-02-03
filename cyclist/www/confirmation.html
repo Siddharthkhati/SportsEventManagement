@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: green;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            background-color: blue;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎉 Registration Successful!</h1>
+    <p>Thank you for registering for the event.</p>
+    <p>Event Name: <strong><span id="event_name"></span></strong></p>
+    <p>Date: <strong><span id="event_date"></span></strong></p>
+    <a href="/">Go to Homepage</a>
+</div>
+
+<script>
+    // Get event details from URL parameters
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("event_name").innerText = params.get("event_name");
+    document.getElementById("event_date").innerText = params.get("event_date");
+</script>
+
+</body>
+</html>
