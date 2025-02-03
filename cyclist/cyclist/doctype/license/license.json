@@ -13,17 +13,20 @@
   "application_date",
   "issue_date",
   "license_validity",
+  "expiry_date",
   "email",
   "expiry_date",
   "column_break_ung4",
   "first_name",
   "full_name",
   "gender",
+  "date_of_birth",
   "age",
   "aadhaar_number",
   "passport_size_photograph",
   "birth_certificate",
   "aadhaar_card",
+  "electronic_signature",
   "section_break_ysap",
   "cycling_category",
   "current_competition_level",
@@ -54,6 +57,7 @@
    "search_index": 1
   },
   {
+   "default": "3454546",
    "fieldname": "license_id",
    "fieldtype": "Data",
    "label": "License ID",
@@ -94,6 +98,7 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "cyclist_id.medical_certificate",
    "fieldname": "medical_fitness_certificate",
    "fieldtype": "Attach",
@@ -120,6 +125,7 @@
    "label": "Issue Date"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "license_type",
    "fieldtype": "Select",
    "label": "License Type",
@@ -132,12 +138,14 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "license_validity",
    "fieldtype": "Select",
    "label": "License Validity (in years)",
    "options": "1\n2\n3"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "cycling_category",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -146,6 +154,7 @@
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "current_competition_level",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -154,16 +163,19 @@
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "team_name_if_applicable",
    "fieldtype": "Data",
    "label": "Team Name (If Applicable)"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "medical_conditions_if_any",
    "fieldtype": "Text",
    "label": "Medical Conditions (if any)"
   },
   {
+   "allow_on_submit": 1,
    "default": "0",
    "fieldname": "i_agree_to_abide_by_the_regulations",
    "fieldtype": "Check",
@@ -176,6 +188,7 @@
    "mandatory_depends_on": "eval:doc.age < 18"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "doping_test_clearance",
    "fieldtype": "Attach",
    "in_list_view": 1,
@@ -209,6 +222,7 @@
    "label": "Terms and Conditions"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "previous_championship_participation",
    "fieldtype": "Table",
    "label": "Previous Championship Participation",
@@ -227,15 +241,31 @@
    "label": "First Name"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "expiry_date",
    "fieldtype": "Date",
-   "label": "Expiry Date"
+   "label": "Expiry date",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "cyclist_id.dob",
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "cyclist_id.electronic_signature",
+   "fieldname": "electronic_signature",
+   "fieldtype": "Signature",
+   "label": "Electronic Signature"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-31 14:18:52.701985",
+ "modified": "2025-02-01 20:09:35.006154",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "License",

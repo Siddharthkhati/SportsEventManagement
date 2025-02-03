@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update License</title>
+    <script src="https://cdn.jsdelivr.net/npm/frappe-js"></script>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading Styles */
+        h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #f1f1f1;
+            padding-bottom: 10px;
+        }
+
+        /* Label Styling */
+        label {
+            font-weight: 600;
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Form Inputs and Select */
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f8f9fa;
+            transition: border 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
+            border-color: #6c757d;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Button Styling */
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add Row Button */
+        .add-row-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .add-row-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Child Table Styling */
+        .child-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        .child-table th, .child-table td {
+            padding: 14px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .child-table th {
+            background-color: #f1f1f1;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .child-table td {
+            background-color: white;
+        }
+
+        .child-table td input[type="text"], .child-table td input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+        }
+
+        .child-table td input[type="text"]:focus, .child-table td input[type="file"]:focus {
+            border-color: #6c757d;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            h3 {
+                font-size: 24px;
+            }
+
+            .btn {
+                font-size: 14px;
+            }
+
+            .add-row-btn {
+                font-size: 12px;
+            }
+
+            .child-table th, .child-table td {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h3>Update License</h3>
+
+    <form id="update-license-form" onsubmit="return validateForm()">
+        <input type="hidden" id="license_id" name="license_id">
+
+        <!-- License Type -->
+        <label for="license_type">License Type:</label>
+        <select id="license_type" name="license_type" required>
+            <option value="amateur">Amateur</option>
+            <option value="professional">Professional</option>
+            <option value="junior">Junior</option>
+            <option value="elite">Elite</option>
+        </select>
+
+        <!-- Cycling Category -->
+        <label for="cycling_category">Cycling Category:</label>
+        <select id="cycling_category" name="cycling_category" required>
+            <option value="road">Road</option>
+            <option value="track">Track</option>
+            <option value="mountain">Mountain</option>
+            <option value="freestyle">Freestyle</option>
+        </select>
+
+        <!-- Current Competition Level -->
+        <label for="current_competition_level">Current Competition Level:</label>
+        <select id="current_competition_level" name="current_competition_level" required>
+            <option value="district">District</option>
+            <option value="state">State</option>
+            <option value="national">National</option>
+        </select>
+
+        <!-- Child Table for Championship -->
+        <table class="child-table" id="child-table">
+            <thead>
+                <tr>
+                    <th>Championship Name</th>
+                    <th>Level</th>
+                    <th>Year</th>
+                    <th>Category</th>
+                    <th>Position</th>
+                    <th>Points Earned</th>
+                    <th>Certificate</th>
+                </tr>
+            </thead>
+            <tbody id="child-table-body">
+                <!-- Child table rows will be appended here -->
+            </tbody>
+        </table>
+
+        <button type="button" class="add-row-btn" id="add-row-btn">+ Add Championship</button>
+        <button type="submit" class="btn">Update License</button>
+    </form>
+</div>
+
+<script>
+    // Handle the "Add Championship" button click event
+    document.getElementById('add-row-btn').addEventListener('click', function() {
+        addRow();
+    });
+
+    // Function to add a row to the child table
+    function addRow() {
+        const tableBody = document.getElementById('child-table-body');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><input type="text" name="championship_name[]" placeholder="Enter Name" required /></td>
+            <td><input type="text" name="championship_level[]" placeholder="Enter Level" required /></td>
+            <td><input type="text" name="championship_year[]" placeholder="Enter Year" required /></td>
+            <td><input type="text" name="championship_category[]" placeholder="Enter Category" required /></td>
+            <td><input type="text" name="championship_position[]" placeholder="Enter Position" required /></td>
+            <td><input type="text" name="points_earned[]" placeholder="Enter Points" /></td>
+            <td><input type="file" name="certificate[]" accept="application/pdf, image/*" required /></td>
+        `;
+        tableBody.appendChild(row);
+    }
+
+    // Validate form before submission
+    function validateForm() {
+        const licenseType = document.getElementById('license_type').value;
+        const childTableBody = document.getElementById('child-table-body');
+
+        if (licenseType !== 'amateur' && childTableBody.rows.length === 0) {
+            alert('Please add at least one championship participation for non-amateur license types.');
+            return false;
+        }
+        return true;
+    }
+
+    // Automatically add a default row if the license type is non-amateur
+    document.getElementById('license_type').addEventListener('change', function() {
+        if (this.value !== 'amateur') {
+            if (document.getElementById('child-table-body').rows.length === 0) {
+                addRow();  // Add a row by default if none exist
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
