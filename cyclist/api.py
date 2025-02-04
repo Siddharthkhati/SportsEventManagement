@@ -109,6 +109,7 @@ def update_registration(docname, first_name, middle_name, last_name, gender):
 #     else:
 #         return {"status": "failed", "message": "Invalid OTP"}
 
+
 @frappe.whitelist()
 def register_for_event(event_name, user):
     """
