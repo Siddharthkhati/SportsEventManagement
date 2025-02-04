@@ -48,20 +48,19 @@ def update_registration(docname, first_name, middle_name, last_name, gender):
         return {"status": "error", "message": str(e)}
 
 
-<<<<<<< Updated upstream
-# @frappe.whitelist(allow_guest=True)  
-# def login_user(email, password):
-#     """Authenticate and log in the user"""
-#     try:
-#         login_manager = LoginManager()
-#         login_manager.authenticate(email, password)
-#         login_manager.login()
-#         return {"status": "success", "message": "Login successful"}
-#     except frappe.AuthenticationError:
-#         return {"status": "error", "message": "Invalid login credentials"}
-#     except Exception as e:
-#         frappe.log_error(f"Login Error: {str(e)}", "User Login")
-#         return {"status": "error", "message": str(e)}
+@frappe.whitelist(allow_guest=True)  
+def login_user(email, password):
+    """Authenticate and log in the user"""
+    try:
+        login_manager = LoginManager()
+        login_manager.authenticate(email, password)
+        login_manager.login()
+        return {"status": "success", "message": "Login successful"}
+    except frappe.AuthenticationError:
+        return {"status": "error", "message": "Invalid login credentials"}
+    except Exception as e:
+        frappe.log_error(f"Login Error: {str(e)}", "User Login")
+        return {"status": "error", "message": str(e)}
 
 
 from frappe.utils.password import check_password
@@ -95,7 +94,49 @@ def send_otp_to_email(email):
         message = f"Your OTP is {otp}. Please use it to verify your login."
         send_email(recipients=email, subject=subject, message=message)
 
-        return {"status": "success"}
+#         return {"status": "success"}
+#     else:
+#         return {"status": "failed", "message": "Email not found"}
+
+# @frappe.whitelist(allow_guest=True)
+# def verify_otp(email, otp):
+#     # Verify the OTP stored in the session
+#     if frappe.session.user_data.get("otp") == int(otp):
+#         # Reset OTP after successful verification
+#         del frappe.session.user_data["otp"]
+
+#         return {"status": "success"}
+#     else:
+#         return {"status": "failed", "message": "Invalid OTP"}
+=======
+>>>>>>> Stashed changes
+
+
+@frappe.whitelist()
+def register_for_event(event_name, user):
+    """
+    Registers a user for an event and redirects to confirmation page.
+    
+    Args:
+    event_name (str): The name of the event.
+    user (str): The user registering.
+
+    Returns:
+    dict: Redirect URL or error message.
+    """
+    events = frappe.get_doc("Events", {"event_name": event_name})
+
+    if events.available_slots > 0:
+        # Reduce available slots
+        events.available_slots -= 1
+        events.save()
+        frappe.db.commit()
+
+        # Generate confirmation page URL
+        confirmation_url = f"/confirmation.html?event_name={event_name}&event_date={events.event_date}"
+
+        return {"status": "success", "redirect_url": confirmation_url}
+    
     else:
         return {"status": "failed", "message": "Email not found"}
 
