@@ -149,3 +149,39 @@ def register_for_event(event_name, user):
 #     else:
 #         return {"status": "failed", "message": "Invalid OTP"}
 
+# import frappe
+import json
+
+@frappe.whitelist()
+def get_license_details(cyclist_id):
+    if not cyclist_id:
+        return {}
+    license_docs = frappe.get_all("License", filters = {"cyclist_id": cyclist_id}, fields = ["*"])
+    if license_docs:
+        return license_docs[0]
+    return {}
+
+@frappe.whitelist()
+def update_license(cyclist_id, updated_fields):
+    if isinstance(updated_fields, str):  # Handle JSON string input
+        updated_fields = json.loads(updated_fields)
+
+    # Fetch the License document
+    if not updated_fields.get("name"):
+        frappe.throw("Document name (license id) is required for updating.")
+
+    license_doc = frappe.get_doc("License", updated_fields.get("name"))
+    
+    # Check if the document exists and if it matches the cyclist_id
+    if license_doc and license_doc.cyclist_id == cyclist_id:
+        # Update only the fields that are present in updated_fields
+        for field, value in updated_fields.items():
+            if value and field != "name":  # Skip the "name" field as it's the document name
+                setattr(license_doc, field, value)
+        
+        # Save the document
+        license_doc.save(ignore_permissions=True)
+        return {"status": "success"}
+    else:
+        frappe.throw(f"No license found for cyclist_id: {cyclist_id}")
+        return {"status": "error"}
