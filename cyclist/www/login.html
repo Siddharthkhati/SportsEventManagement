@@ -108,28 +108,9 @@
             <input type="password" id="password" name="password" placeholder="Password" required><br>
             <button type="submit">Log In</button>
             <div class="divider"><span>OR</span></div>
-            <a href="#" class="forgot-password" onclick="forgotPassword()">Forgot Password?</a>
+            <a href="#" class="forgot-password">Forgot Password?</a>
         </form>
     </div>
 </body>
-<script>
-    function forgotPassword() {
-        const email = document.getElementById("email").value;
 
-        // Call API to send OTP to the user's email
-        frappe.call({
-            method: "cyclist.api.send_otp",  // You should create this method to send OTP to the email.
-            args: { email: email },
-            callback: function(response) {
-                if (response.message.status === "success") {
-                    frappe.msgprint("OTP sent to your email. Please check your inbox.");
-                    // Redirect the user to the profile page after OTP is sent.
-                    window.location.href = "/profile";
-                } else {
-                    frappe.msgprint("Error sending OTP. Please try again.");
-                }
-            }
-        });
-    }
-</script>
-</html> -->
+</html>
