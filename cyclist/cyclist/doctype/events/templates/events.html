@@ -2,64 +2,211 @@
 
 {% block page_content %}
 <div class="container py-5">
-    <h1 class="text-center text-primary">Event Details</h1>
+
+     <!-- Top Right Button for All Events -->
+     <div class="d-flex justify-content-end mb-4">
+        <a href="/events" class="btn btn-outline-dark btn-lg shadow-sm all-championship-btn">
+            <i class="fas fa-trophy"></i> View All Events
+        </a>
+    </div>
+
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm border-0 p-4">
-                <img src= "{{ doc.image }}" class="card-img-top" alt="Event Image">
-                
-                <p><strong>Event Name:</strong> {{ doc.event_name }}</p>
-                <p><strong>Championship:</strong> {{ doc.championship }}</p>
-                <p><strong>Type:</strong> {{ doc.event_type }}</p>
-                <p><strong>Distance:</strong> {{ doc.distance }}</p>
-                <p><strong>Date:</strong> {{ doc.event_date }}</p>
-                <p><strong>Status:</strong> {{ doc.event_status }}</p>
-                <p><strong>Category:</strong> {{ doc.category }}</p>
-                <p><strong>Age Group:</strong> {{ doc.age_group }}</p>
-                <p><strong>Available Slots:</strong> {{ doc.available_slots }}</p>
-                <p><strong>Event Starts In:</strong> <span id="countdown"></span></p>
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0 rounded-lg championship-card">
 
-                {% if doc.results_published %}
-                    <h3 class="mt-4 text-primary">Event Results</h3>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Participant</th>
-                                <th>Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for result in doc.results %}
-                                <tr>
-                                    <td>{{ result.rank }}</td>
-                                    <td>{{ result.participant }}</td>
-                                    <td>{{ result.time }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                {% endif %}
+                <!-- Event Title -->
+                <h2 class="card-title text-center font-weight-bold text-primary championship-title">
+                    {{ doc.event_name }}
+                </h2>
 
-                <button class="btn btn-primary mt-3" onclick="registerForEvent()">Register Now</button>
-
-                
-                <div class="d-flex justify-content-between">
-                    <a href="https://twitter.com/intent/tweet?text=Join%20{{ doc.event_name }}%20on%20{{ doc.event_date }}" target="_blank" class="btn btn-outline-info d-flex align-items-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Twitter_Logo_2012.png/1200px-Twitter_Logo_2012.png" alt="Twitter" style="width: 20px; height: 20px; margin-right: 8px;">Share on Twitter
-                    </a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ frappe.utils.get_url() }}/events/{{ doc.name }}" target="_blank" class="btn btn-outline-primary d-flex align-items-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1024px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook" style="width: 20px; height: 20px; margin-right: 8px;"> Share on Facebook
-                    </a>
-                    <a href="https://api.whatsapp.com/send?text=Join%20{{ doc.event_name }}%20on%20{{ doc.event_date }}%20-%20{{ frappe.utils.get_url() }}/events/{{ doc.name }}" target="_blank" class="btn btn-outline-success d-flex align-items-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1024px-WhatsApp.svg.png" alt="WhatsApp" style="width: 20px; height: 20px; margin-right: 8px;"> Share on WhatsApp
-                    </a>
+                <!-- Image Section with Hover Effect -->
+                <div class="text-center p-3">
+                    <img src="{{ doc.image or 'default_image_url.jpg' }}" 
+                         class="card-img-top rounded championship-image"
+                         alt="Event Image">
                 </div>
 
+                <!-- Event Details -->
+                <div class="card-body">
+                    <p class="card-text mt-3">
+                        <i class="fas fa-info-circle"></i> <strong>Championship:</strong> 
+                        <span class="text-muted">{{ doc.championship }}</span>
+                    </p>
+
+                    <p class="card-text">
+                        <i class="fas fa-layer-group"></i> <strong>Type:</strong> 
+                        <span class="text-muted">{{ doc.event_type }}</span>
+                    </p>
+
+                    <p class="card-text">
+                        <i class="fas fa-random"></i> <strong>Distance:</strong> 
+                        <span class="text-muted">{{ doc.distance }}</span>
+                    </p>
+
+                    <p class="card-text">
+                        <i class="fas fa-calendar-alt"></i> <strong>Date:</strong> 
+                        <span class="text-muted">{{ doc.event_date }}</span>
+                    </p>
+
+                    <p class="card-text">
+                        <i class="fas fa-check-circle"></i> <strong>Status:</strong> 
+                        <span class="text-muted">{{ doc.event_status }}</span>
+                    </p>
+
+                    <p class="card-text">
+                        <i class="fas fa-users"></i> <strong>Category:</strong> 
+                        <span class="text-muted">{{ doc.category }}</span>
+                    </p>
+
+                    <p class="card-text">
+                        <i class="fas fa-child"></i> <strong>Age Group:</strong> 
+                        <span class="text-muted">{{ doc.age_group }}</span>
+                    </p>
+
+                    <p class="card-text">
+                        <i class="fas fa-cogs"></i> <strong>Available Slots:</strong> 
+                        <span class="text-muted">{{ doc.available_slots }}</span>
+                    </p>
+
+                    <p class="card-text">
+                        <i class="fas fa-clock"></i> <strong>Event Starts In:</strong> 
+                        <span id="countdown"></span>
+                    </p>
+
+                    {% if doc.results_published %}
+                        <h3 class="mt-4 text-primary">Event Results</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Participant</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for result in doc.results %}
+                                    <tr>
+                                        <td>{{ result.rank }}</td>
+                                        <td>{{ result.participant }}</td>
+                                        <td>{{ result.time }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+
+                    <!-- Registration Button -->
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary btn-lg shadow championship-events-btn" onclick="registerForEvent()">
+                            <i class="fas fa-list"></i> Register Now
+                        </button>
+                    </div>
+
+                    <!-- Social Sharing Buttons -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="https://twitter.com/intent/tweet?text=Join%20{{ doc.event_name }}%20on%20{{ doc.event_date }}" target="_blank" class="btn btn-outline-info d-flex align-items-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Twitter_Logo_2012.png/1200px-Twitter_Logo_2012.png" alt="Twitter" style="width: 20px; height: 20px; margin-right: 8px;"> Share on Twitter
+                        </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ frappe.utils.get_url() }}/events/{{ doc.name }}" target="_blank" class="btn btn-outline-primary d-flex align-items-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1024px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook" style="width: 20px; height: 20px; margin-right: 8px;"> Share on Facebook
+                        </a>
+                        <a href="https://api.whatsapp.com/send?text=Join%20{{ doc.event_name }}%20on%20{{ doc.event_date }}%20-%20{{ frappe.utils.get_url() }}/events/{{ doc.name }}" target="_blank" class="btn btn-outline-success d-flex align-items-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1024px-WhatsApp.svg.png" alt="WhatsApp" style="width: 20px; height: 20px; margin-right: 8px;"> Share on WhatsApp
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Custom Styles -->
+<style>
+    /* General Styling */
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* All Events Button */
+    .all-championship-btn {
+        transition: 0.3s ease-in-out;
+        border-radius: 50px;
+        font-weight: bold;
+        background: linear-gradient(135deg, #007bff, #6610f2);
+        color: white !important;
+    }
+
+    .all-championship-btn:hover {
+        transform: scale(1.05);
+        background: linear-gradient(135deg, #6610f2, #007bff);
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Championship Card */
+    .championship-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .championship-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Championship Image */
+    .championship-image {
+        max-width: 85%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 15px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .championship-image:hover {
+        transform: scale(1.05);
+    }
+
+    /* Championship Title */
+    .championship-title {
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 20px;
+    }
+
+    /* Championship Events Button */
+    .championship-events-btn {
+        font-size: 1.2rem;
+        padding: 12px 20px;
+        border-radius: 50px;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        background: linear-gradient(135deg, #28a745, #218838);
+        color: white !important;
+    }
+
+    .championship-events-btn:hover {
+        transform: scale(1.07);
+        background: linear-gradient(135deg, #218838, #28a745);
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Social Media Buttons */
+    .btn-outline-info, .btn-outline-primary, .btn-outline-success {
+        transition: 0.3s ease-in-out;
+        border-radius: 50px;
+        font-weight: bold;
+    }
+
+    .btn-outline-info:hover, .btn-outline-primary:hover, .btn-outline-success:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+</style>
 
 <script>
     function updateCountdown() {
