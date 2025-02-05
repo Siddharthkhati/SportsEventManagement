@@ -185,3 +185,29 @@ def update_license(cyclist_id, updated_fields):
     else:
         frappe.throw(f"No license found for cyclist_id: {cyclist_id}")
         return {"status": "error"}
+@frappe.whitelist()
+def get_event_details(event_name):
+    event = frappe.get_doc("Events", event_name)
+    # championship = frappe.get_doc("Events", event.championship)
+
+    return {
+        "event_name": event.event_name,
+        "championship": event.championship,
+        "category": event.category,
+        "age_group": event.age_group,
+    }
+
+@frappe.whitelist()
+def get_email():
+        user_email = frappe.session.user  # Fetch the logged-in user's email
+        return user_email  # Return the email
+
+  
+@frappe.whitelist()
+def get_full_name():
+    """Fetch the logged-in user's full name."""
+    user_email = frappe.session.user  # Get the logged-in user's email
+    user = frappe.get_doc("User", user_email)  # Fetch the User document
+    return user.full_name  # Return the full name of the user
+
+
