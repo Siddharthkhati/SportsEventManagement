@@ -97,9 +97,9 @@
 
                     <!-- Registration Button -->
                     <div class="text-center mt-4">
-                        <button class="btn btn-primary btn-lg shadow championship-events-btn" onclick="registerForEvent()">
+                        <a href="/event-registration-form/new?event_name={{ event_name }}" class="btn btn-primary btn-lg shadow championship-events-btn">
                             <i class="fas fa-list"></i> Register Now
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Social Sharing Buttons -->
@@ -229,22 +229,23 @@
     }
     updateCountdown();
 
-    function registerForEvent() {
-        frappe.call({
-            method: 'cyclist.api.register_for_event',
-            args: {
-                event_name: "{{ doc.event_name }}",
-                user: frappe.session.user
-            },
-            callback: function(response) {
-                if (response.message.status === 'success') {
-                    frappe.msgprint(__('Successfully Registered!'));
-                } else {
-                    frappe.msgprint(__('Registration Failed!'));
-                }
-            }
-        });
-    }
+    // function registerForEvent() {
+    //     frappe.call({
+    //         method: 'cyclist.api.register_for_event',
+    //         args: {
+    //             event_name: "{{ doc.event_name }}",
+    //             user: frappe.session.user
+    //         },
+    //         callback: function(response) {
+    //             if (response.message.status === 'success') {
+    //                 frappe.msgprint(__('Successfully Registered!'));
+    //             } else {
+    //                 frappe.msgprint(__('Registration Failed!'));
+    //             }
+    //         }
+    //     });
+    // }
+
 </script>
 
 {% endblock %}
