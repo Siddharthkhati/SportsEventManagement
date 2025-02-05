@@ -44,4 +44,20 @@ frappe.ready(function() {
             }, 5);
         }
     });
+
+    frappe.web_form.validate = () => {
+        let is_agreed = frappe.web_form.get_value("i_agree_to_abide_by_the_regulations");
+    
+        if (!is_agreed) {
+            frappe.msgprint({
+                title: __('⚠️ Agreement Required'),
+                message: __('You must agree to abide by the regulations before submitting the form.'),
+                indicator: 'red'
+            });
+            return false; 
+        }
+        return true; 
+    };
+    
+    
 });

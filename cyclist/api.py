@@ -108,8 +108,6 @@ def send_otp_to_email(email):
 #         return {"status": "success"}
 #     else:
 #         return {"status": "failed", "message": "Invalid OTP"}
-=======
->>>>>>> Stashed changes
 
 
 @frappe.whitelist()

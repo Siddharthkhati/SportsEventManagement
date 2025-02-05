@@ -18,7 +18,7 @@
  "list_columns": [],
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2025-01-31 12:24:47.384608",
+ "modified": "2025-02-05 12:51:08.398108",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "new-license",
@@ -216,20 +216,6 @@
   },
   {
    "allow_read_on_all_link_options": 0,
-   "fieldname": "license_validity",
-   "fieldtype": "Select",
-   "hidden": 0,
-   "label": "License Validity (in years)",
-   "max_length": 0,
-   "max_value": 0,
-   "options": "1\n2\n3",
-   "precision": "",
-   "read_only": 0,
-   "reqd": 1,
-   "show_in_filter": 0
-  },
-  {
-   "allow_read_on_all_link_options": 0,
    "fieldname": "section_break_ysap",
    "fieldtype": "Section Break",
    "hidden": 0,
@@ -324,19 +310,6 @@
   },
   {
    "allow_read_on_all_link_options": 0,
-   "fieldname": "doping_test_clearance",
-   "fieldtype": "Attach",
-   "hidden": 0,
-   "label": "Doping Test Clearance",
-   "max_length": 0,
-   "max_value": 0,
-   "precision": "",
-   "read_only": 0,
-   "reqd": 1,
-   "show_in_filter": 0
-  },
-  {
-   "allow_read_on_all_link_options": 0,
    "fieldname": "medical_conditions_if_any",
    "fieldtype": "Text",
    "hidden": 0,
@@ -386,7 +359,7 @@
    "max_value": 0,
    "precision": "",
    "read_only": 0,
-   "reqd": 0,
+   "reqd": 1,
    "show_in_filter": 0
   }
  ]
