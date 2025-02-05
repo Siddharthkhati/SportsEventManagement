@@ -51,8 +51,7 @@
   {
    "fieldname": "full_name",
    "fieldtype": "Data",
-   "label": "Full Name",
-   "unique": 1
+   "label": "Full Name"
   },
   {
    "fieldname": "email",
@@ -90,7 +89,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-05 12:27:01.779986",
+ "modified": "2025-02-05 14:55:40.547595",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Event participants Details",
