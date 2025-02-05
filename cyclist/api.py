@@ -197,12 +197,15 @@ def update_license(cyclist_id, updated_fields):
 @frappe.whitelist()
 def get_event_details(event_name):
     event = frappe.get_doc("Events", event_name)
+    championship = frappe.get_doc("Championship", event.championship)   
 
     return {
         "event_name": event.event_name,
         "championship": event.championship,
         "category": event.category,
         "age_group": event.age_group,
+        "location": championship.location,
+        "date": championship.date,
     }
 
 @frappe.whitelist()
