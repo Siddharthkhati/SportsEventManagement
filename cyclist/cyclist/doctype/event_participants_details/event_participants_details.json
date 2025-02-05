@@ -1,35 +1,35 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:full_name",
  "creation": "2025-01-30 10:17:27.351607",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "athlete",
-  "event",
+  "full_name",
+  "email",
   "championship",
+  "event",
   "gender",
   "age_group",
-  "is_winner",
-  "certificate"
+  "i_confirm_the_above_event_registration_details"
  ],
  "fields": [
-  {
-   "fieldname": "athlete",
-   "fieldtype": "Data",
-   "label": "Athlete"
-  },
   {
    "fieldname": "event",
    "fieldtype": "Link",
    "label": "Event",
-   "options": "Events"
+   "options": "Events",
+   "read_only": 1
   },
   {
+   "default": "{{ doc.name_of_championship }}",
+   "fetch_from": "event.championship",
    "fieldname": "championship",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Championship",
-   "options": "Championship"
+   "options": "Championship",
+   "read_only": 1
   },
   {
    "fetch_from": "event.category",
@@ -42,28 +42,36 @@
    "fetch_from": "event.age_group",
    "fieldname": "age_group",
    "fieldtype": "Data",
-   "label": "Age Group"
+   "label": "Age Group",
+   "read_only": 1
   },
   {
-   "depends_on": "eval:doc.is_winner\n",
-   "fieldname": "certificate",
-   "fieldtype": "Attach",
-   "label": "Certificate"
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "read_only": 1
   },
   {
    "default": "0",
-   "depends_on": "eval:doc.is_winner",
-   "fieldname": "is_winner",
+   "fieldname": "i_confirm_the_above_event_registration_details",
    "fieldtype": "Check",
-   "label": "Is winner"
+   "label": "I confirm the above Event Registration Details",
+   "mandatory_depends_on": "eval:doc.event"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-30 10:49:50.149041",
+ "modified": "2025-02-05 11:01:23.613053",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Event participants Details",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

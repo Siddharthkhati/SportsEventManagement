@@ -3,6 +3,5 @@
 
 frappe.ui.form.on("License", {
 	refresh(frm) {
-        on_submit()
 	},
 });
