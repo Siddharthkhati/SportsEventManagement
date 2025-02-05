@@ -1,35 +1,70 @@
-frappe.ready(function () {
-	// Get the license_id from URL
-	let urlParams = new URLSearchParams(window.location.search);
-	let license_id = urlParams.get("license_id");
+frappe.ready(() => {
+    console.log("Script Loaded");
 
-	// Ensure the form values are collected and the license_id is added
-	let formData = frappe.web_form.get_values();
-	formData.license_id = license_id;  // Add license_id to the form data
+    let urlParams = new URLSearchParams(window.location.search);
+    let cyclist_id = urlParams.get("cyclist_id");
 
-	// Add an event listener for the save button
-	frappe.web_form.on_submit = function () {
-		// Make sure required fields are filled (if needed)
-		if (!formData.medical_fitness_certificate || !formData.doping_test_clearance) {
-			frappe.msgprint("Please fill in the mandatory fields.");
-			return false; // Prevent form submission
-		}
+    if (cyclist_id) {
+        console.log("Cyclist ID from URL:", cyclist_id);
 
-		// Now call the update_license_details method via frappe.call
-		frappe.call({
-			method: "cyclist.cyclist.api.update_license_details",
-			args: { data: JSON.stringify(formData) },  // Send all form data as JSON
-			callback: function (response) {
-				if (response.message.status === "success") {
-					// Show success message after updating license details
-					frappe.msgprint(response.message.message);
-					// Optionally, redirect or refresh the page
-					window.location.reload();
-				} else {
-					// Show error message if something goes wrong
-					frappe.msgprint(response.message.message);
-				}
-			}
-		});
-	};
-})
+        frappe.call({
+            method: "cyclist.api.get_license_details",
+            args: { cyclist_id: cyclist_id },
+            callback: function (r) {
+                if (r.message) {
+                    console.log("License details fetched:", r.message);
+
+                    frappe.web_form.doc_name = r.message.name;
+                    frappe.web_form.set_values(r.message);
+                } else {
+                    frappe.msgprint("License not found!");
+                }
+            }
+        });
+    }
+
+    frappe.web_form.validate = function () {
+        console.log("Validate function triggered!");
+
+        if (frappe.web_form.doc_name) {
+            console.log("Existing License Record Name:", frappe.web_form.doc_name);
+
+            let updated_fields = frappe.web_form.get_values();
+            updated_fields.name = frappe.web_form.doc_name;
+
+            updated_fields.cyclist_id = urlParams.get("cyclist_id");
+
+            frappe.call({
+                method: "cyclist.api.update_license",
+                args: {
+                    cyclist_id: updated_fields.cyclist_id,
+                    updated_fields: JSON.stringify(updated_fields)
+                },
+                callback: function (r) {
+                    if (r.message && r.message.status === "success") {
+                        frappe.msgprint("License details updated successfully!");
+                    } else {
+                        frappe.msgprint("Error updating license details!");
+                    }
+                },
+                error: function (error) {
+                    console.error("Error saving document:", error);
+                }
+            });
+
+            return false;
+        } else {
+            console.log("No existing license record found!");
+            frappe.msgprint("No existing license record found!");
+            return false;
+        }
+    };
+
+    frappe.web_form.on("submit", function() {
+
+        let updated_fields = frappe.web_form.get_values();
+
+        console.log("Manual form submission triggered!");
+        return false;
+    });
+});

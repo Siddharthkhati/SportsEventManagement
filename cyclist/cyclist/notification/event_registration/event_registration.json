@@ -1,0 +1,30 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2025-02-05 11:22:32.082600",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Event participants Details",
+ "enabled": 1,
+ "event": "Save",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "<p>Dear {{ doc.full_name }},  </p>\n\n<p>You have been successfully registered for the {{ doc.event }}</p>\n\n<p>Your Events Details are as follows:<br />\n1. Event Name: {{ doc.event }}\ud83d\udeb4<br />\n2. Championship Name: {{ doc.championship }}\ud83c\udfc6<br />\n3. Location: {{ doc.location }}\ud83d\udccd<br />\n4. Date: {{ doc.Date }}\ud83d\uddd3\ufe0f<br />\n5. Category: {{ doc.gender }}<br />\n6. Age Group: {{ doc.age_group }}</p>\ns\n<p>Please reach the Event's Location on time</p>\n\n<p>Best Regards,<br />\nPedal League <br />\npedalleague.management@gmail.com</p>\n",
+ "message_type": "Markdown",
+ "modified": "2025-02-05 12:58:00.893934",
+ "modified_by": "manya@korecent.com",
+ "module": "Cyclist",
+ "name": "Event Registration",
+ "owner": "manya@korecent.com",
+ "recipients": [
+  {
+   "receiver_by_document_field": "email"
+  }
+ ],
+ "send_system_notification": 1,
+ "send_to_all_assignees": 0,
+ "sender": "Pedal League",
+ "sender_email": "pedalleague.management@gmail.com",
+ "subject": "Congratulations! \ud83e\udd73 You have been registered for the {{ doc.event }}"
+}

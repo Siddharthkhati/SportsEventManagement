@@ -12,10 +12,5 @@ class License(Document):
             if not self.license_id:  
                 self.license_id = "LIC-" + ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
             
-            self.issue_date = frappe.utils.today()
-
-            if self.license_validity and self.license_validity.isdigit(): 
-                validity_years = int(self.license_validity)  
-                self.expiry_date = frappe.utils.add_days(self.issue_date, validity_years * 365)
-
-
+            self.issue_date = frappe.utils.today()  
+            self.expiry_date = frappe.utils.add_days(self.issue_date, 365)

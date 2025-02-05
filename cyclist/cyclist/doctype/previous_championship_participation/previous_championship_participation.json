@@ -65,17 +65,17 @@
    "label": "Points Earned"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "certificate",
    "fieldtype": "Attach",
    "in_list_view": 1,
-   "label": "Certificate",
-   "reqd": 1
+   "label": "Certificate"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-01-29 17:56:04.631349",
+ "modified": "2025-02-05 11:31:35.026699",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Previous Championship Participation",

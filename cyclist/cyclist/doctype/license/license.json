@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:LICENSE_{cyclist_id}",
  "creation": "2025-01-29 15:50:45.104705",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -15,7 +16,6 @@
   "license_validity",
   "expiry_date",
   "email",
-  "expiry_date",
   "column_break_ung4",
   "first_name",
   "full_name",
@@ -34,7 +34,6 @@
   "previous_championship_participation",
   "section_break_ksht",
   "medical_fitness_certificate",
-  "doping_test_clearance",
   "medical_conditions_if_any",
   "parental_consent_if_under_18",
   "section_break_dzcx",
@@ -57,9 +56,9 @@
    "search_index": 1
   },
   {
-   "default": "3454546",
    "fieldname": "license_id",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "License ID",
    "read_only": 1
   },
@@ -122,7 +121,9 @@
   {
    "fieldname": "issue_date",
    "fieldtype": "Date",
-   "label": "Issue Date"
+   "hidden": 1,
+   "label": "Issue Date",
+   "read_only": 1
   },
   {
    "allow_on_submit": 1,
@@ -141,8 +142,8 @@
    "allow_on_submit": 1,
    "fieldname": "license_validity",
    "fieldtype": "Select",
-   "label": "License Validity (in years)",
-   "options": "1\n2\n3"
+   "label": "License Validity",
+   "options": "1 year\n2 years\n3 years"
   },
   {
    "allow_on_submit": 1,
@@ -186,14 +187,6 @@
    "fieldtype": "Attach",
    "label": "Parental Consent (if under 18)",
    "mandatory_depends_on": "eval:doc.age < 18"
-  },
-  {
-   "allow_on_submit": 1,
-   "fieldname": "doping_test_clearance",
-   "fieldtype": "Attach",
-   "in_list_view": 1,
-   "label": "Doping Test Clearance",
-   "reqd": 1
   },
   {
    "fetch_from": "cyclist_id.age",
@@ -265,10 +258,11 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-01 20:09:35.006154",
+ "modified": "2025-02-04 17:19:27.516200",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "License",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
