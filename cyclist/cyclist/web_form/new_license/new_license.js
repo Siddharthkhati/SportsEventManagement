@@ -1,4 +1,99 @@
 frappe.ready(function() {
+    // Add custom CSS styling
+    const style = document.createElement("style");
+    style.innerHTML = `
+        /* General Form Styling */
+        .web-form-container {
+            max-width: 800px; /* Increased width */
+            margin: auto;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        /* Form Title */
+        .web-form-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Form Fields */
+        .frappe-control {
+            margin-bottom: 18px;
+        }
+
+        .frappe-control label {
+            font-weight: 600;
+            color: #222;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .frappe-control select, 
+        .frappe-control textarea {
+            width: 100%;
+            border-radius: 6px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .frappe-control input {
+            width: 100%;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .frappe-control input:focus, 
+        .frappe-control select:focus, 
+        .frappe-control textarea:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Submit Button */
+        .btn-primary {
+            width: 50%;
+            background-color: #007bff;
+            border: none;
+            padding: 12px 15px;
+            font-size: 17px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease-in-out;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            box-shadow: 0px 4px 10px rgba(0, 91, 187, 0.3);
+        }
+
+        /* Alert Message */
+        .custom-alert {
+            background: #ffcc00;
+            color: #333;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .web-form-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
     let urlParams = new URLSearchParams(window.location.search);
     let cyclist_id = urlParams.get("cyclist_id"); // Get cyclist_id from URL
 
