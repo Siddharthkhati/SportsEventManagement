@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:full_name",
+ "autoname": "REG-.####",
  "creation": "2025-01-30 10:17:27.351607",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -10,9 +10,12 @@
   "email",
   "championship",
   "event",
+  "location",
+  "date",
   "gender",
   "age_group",
-  "i_confirm_the_above_event_registration_details"
+  "i_confirm_the_above_event_registration_details",
+  "champ"
  ],
  "fields": [
   {
@@ -55,6 +58,7 @@
    "fieldname": "email",
    "fieldtype": "Data",
    "label": "Email",
+   "options": "Email",
    "read_only": 1
   },
   {
@@ -63,15 +67,34 @@
    "fieldtype": "Check",
    "label": "I confirm the above Event Registration Details",
    "mandatory_depends_on": "eval:doc.event"
+  },
+  {
+   "fetch_from": "champ.location",
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fetch_from": "champ.date",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "champ",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Champ",
+   "options": "Championship"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-05 11:01:23.613053",
+ "modified": "2025-02-05 12:27:01.779986",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Event participants Details",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
