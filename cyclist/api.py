@@ -139,7 +139,7 @@ def register_for_event(event_name, user):
         return {"status": "failed", "message": "Email not found"}
 
 import json
-from frappe.utils import add_days, today
+from frappe.utils import today, add_days
 
 @frappe.whitelist()
 def get_license_details(cyclist_id):
@@ -161,7 +161,7 @@ def update_license(cyclist_id, updated_fields):
     license_doc = frappe.get_doc("License", updated_fields.get("name"))
     
     if license_doc and license_doc.cyclist_id == cyclist_id:
-        # Update the simple fields
+        # Update simple fields
         for field, value in updated_fields.items():
             if value and field != "name" and field != "previous_championship_participation":
                 setattr(license_doc, field, value)
@@ -173,6 +173,7 @@ def update_license(cyclist_id, updated_fields):
             if isinstance(new_participations, str):  # Convert string JSON if received as string
                 new_participations = json.loads(new_participations)
             
+            # Add new rows to the child table
             for new_row in new_participations:
                 row = license_doc.append("previous_championship_participation", {})
                 row.championship_name = new_row.get("championship_name")
@@ -182,17 +183,17 @@ def update_license(cyclist_id, updated_fields):
                 row.position_achieved = new_row.get("position_achieved")
                 row.points_earned = new_row.get("points_earned")
                 row.certificate = new_row.get("certificate")
-            
+        
         # Update expiry date
         license_doc.expiry_date = add_days(today(), 365)
 
+        # Save the document
         license_doc.save(ignore_permissions=True)
         frappe.db.commit()
         return {"status": "success"}
     else:
         frappe.throw(f"No license found for cyclist_id: {cyclist_id}")
         return {"status": "error"}
-
 
 @frappe.whitelist()
 def get_event_details(event_name):

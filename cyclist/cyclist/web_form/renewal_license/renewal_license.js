@@ -32,7 +32,27 @@ frappe.ready(() => {
             let updated_fields = frappe.web_form.get_values();
             updated_fields.name = frappe.web_form.doc_name;
 
-            updated_fields.cyclist_id = urlParams.get("cyclist_id");
+            // Ensure the cyclist_id is part of the updated_fields
+            updated_fields.cyclist_id = new URLSearchParams(window.location.search).get("cyclist_id");
+
+            let license_type = updated_fields.license_type;
+
+            if(license_type && license_type != "Amateur") {
+                let championship_participation = updated_fields.previous_championship_participation;
+
+                if (!championship_participation || championship_participation.length === 0) {
+                    frappe.msgprint("Must have at least one value in the previous championship participation.");
+                    return false;
+                }
+
+                // Validate that all required fields in the child table are filled
+                for (let row of championship_participation) {
+                    if (!row.championship_name || !row.year_of_participation || !row.position_achieved) {
+                        frappe.msgprint("Please fill all required fields in the Championship Participation.");
+                        return false;
+                    }
+                }
+            }
 
             frappe.call({
                 method: "cyclist.api.update_license",
