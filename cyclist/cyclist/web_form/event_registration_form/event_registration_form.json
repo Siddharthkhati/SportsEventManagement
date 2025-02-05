@@ -18,7 +18,7 @@
  "list_columns": [],
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2025-02-05 11:02:35.416720",
+ "modified": "2025-02-05 12:50:17.821207",
  "modified_by": "manya@korecent.com",
  "module": "Cyclist",
  "name": "event-registration-form",
@@ -88,6 +88,32 @@
   },
   {
    "allow_read_on_all_link_options": 0,
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "hidden": 0,
+   "label": "Location",
+   "max_length": 0,
+   "max_value": 0,
+   "precision": "",
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "hidden": 0,
+   "label": "Date",
+   "max_length": 0,
+   "max_value": 0,
+   "precision": "",
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
    "fieldname": "gender",
    "fieldtype": "Data",
    "hidden": 0,
@@ -124,7 +150,7 @@
    "max_value": 0,
    "precision": "",
    "read_only": 0,
-   "reqd": 0,
+   "reqd": 1,
    "show_in_filter": 0
   }
  ]
