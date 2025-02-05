@@ -138,19 +138,8 @@ def register_for_event(event_name, user):
     else:
         return {"status": "failed", "message": "Email not found"}
 
-# @frappe.whitelist(allow_guest=True)
-# def verify_otp(email, otp):
-#     # Verify the OTP stored in the session
-#     if frappe.session.user_data.get("otp") == int(otp):
-#         # Reset OTP after successful verification
-#         del frappe.session.user_data["otp"]
-
-#         return {"status": "success"}
-#     else:
-#         return {"status": "failed", "message": "Invalid OTP"}
-
-# import frappe
 import json
+from frappe.utils import add_days, today
 
 @frappe.whitelist()
 def get_license_details(cyclist_id):
@@ -163,32 +152,51 @@ def get_license_details(cyclist_id):
 
 @frappe.whitelist()
 def update_license(cyclist_id, updated_fields):
-    if isinstance(updated_fields, str):  # Handle JSON string input
+    if isinstance(updated_fields, str):
         updated_fields = json.loads(updated_fields)
 
-    # Fetch the License document
     if not updated_fields.get("name"):
         frappe.throw("Document name (license id) is required for updating.")
 
     license_doc = frappe.get_doc("License", updated_fields.get("name"))
     
-    # Check if the document exists and if it matches the cyclist_id
     if license_doc and license_doc.cyclist_id == cyclist_id:
-        # Update only the fields that are present in updated_fields
+        # Update the simple fields
         for field, value in updated_fields.items():
-            if value and field != "name":  # Skip the "name" field as it's the document name
+            if value and field != "name" and field != "previous_championship_participation":
                 setattr(license_doc, field, value)
-        
-        # Save the document
+
+        # Handle the Previous Championship Participation child table
+        if "previous_championship_participation" in updated_fields:
+            new_participations = updated_fields["previous_championship_participation"]
+            
+            if isinstance(new_participations, str):  # Convert string JSON if received as string
+                new_participations = json.loads(new_participations)
+            
+            for new_row in new_participations:
+                row = license_doc.append("previous_championship_participation", {})
+                row.championship_name = new_row.get("championship_name")
+                row.level_of_championship = new_row.get("level_of_championship")
+                row.year_of_participation = new_row.get("year_of_participation")
+                row.category = new_row.get("category")
+                row.position_achieved = new_row.get("position_achieved")
+                row.points_earned = new_row.get("points_earned")
+                row.certificate = new_row.get("certificate")
+            
+        # Update expiry date
+        license_doc.expiry_date = add_days(today(), 365)
+
         license_doc.save(ignore_permissions=True)
+        frappe.db.commit()
         return {"status": "success"}
     else:
         frappe.throw(f"No license found for cyclist_id: {cyclist_id}")
         return {"status": "error"}
+
+
 @frappe.whitelist()
 def get_event_details(event_name):
     event = frappe.get_doc("Events", event_name)
-    # championship = frappe.get_doc("Events", event.championship)
 
     return {
         "event_name": event.event_name,
@@ -209,5 +217,3 @@ def get_full_name():
     user_email = frappe.session.user  # Get the logged-in user's email
     user = frappe.get_doc("User", user_email)  # Fetch the User document
     return user.full_name  # Return the full name of the user
-
-
