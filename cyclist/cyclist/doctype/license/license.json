@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:LICENSE_{cyclist_id}",
  "creation": "2025-01-29 15:50:45.104705",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -55,7 +56,6 @@
    "search_index": 1
   },
   {
-   "default": "3454546",
    "fieldname": "license_id",
    "fieldtype": "Data",
    "hidden": 1,
@@ -258,10 +258,11 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-04 15:50:20.227108",
+ "modified": "2025-02-04 17:19:27.516200",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "License",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
