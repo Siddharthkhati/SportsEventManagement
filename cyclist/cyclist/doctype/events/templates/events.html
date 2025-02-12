@@ -3,8 +3,8 @@
 {% block page_content %}
 <div class="container py-5">
 
-     <!-- Top Right Button for All Events -->
-     <div class="d-flex justify-content-end mb-4">
+    <!-- Top Right Button for All Events -->
+    <div class="d-flex justify-content-end mb-4">
         <a href="/events" class="btn btn-outline-dark btn-lg shadow-sm all-championship-btn">
             <i class="fas fa-trophy"></i> View All Events
         </a>
@@ -21,97 +21,104 @@
 
                 <!-- Image Section with Hover Effect -->
                 <div class="text-center p-3">
-                    <img src="{{ doc.image or 'default_image_url.jpg' }}" 
-                         class="card-img-top rounded championship-image"
-                         alt="Event Image">
+                    <img src="{{ doc.image or 'default_image_url.jpg' }}"
+                        class="card-img-top rounded championship-image" alt="Event Image">
                 </div>
 
                 <!-- Event Details -->
                 <div class="card-body">
                     <p class="card-text mt-3">
-                        <i class="fas fa-info-circle"></i> <strong>Championship:</strong> 
+                        <i class="fas fa-info-circle"></i> <strong>Championship:</strong>
                         <span class="text-muted">{{ doc.championship }}</span>
                     </p>
 
                     <p class="card-text">
-                        <i class="fas fa-layer-group"></i> <strong>Type:</strong> 
+                        <i class="fas fa-layer-group"></i> <strong>Type:</strong>
                         <span class="text-muted">{{ doc.event_type }}</span>
                     </p>
 
                     <p class="card-text">
-                        <i class="fas fa-random"></i> <strong>Distance:</strong> 
+                        <i class="fas fa-random"></i> <strong>Distance:</strong>
                         <span class="text-muted">{{ doc.distance }}</span>
                     </p>
 
                     <p class="card-text">
-                        <i class="fas fa-calendar-alt"></i> <strong>Date:</strong> 
+                        <i class="fas fa-calendar-alt"></i> <strong>Date:</strong>
                         <span class="text-muted">{{ doc.event_date }}</span>
                     </p>
 
                     <p class="card-text">
-                        <i class="fas fa-check-circle"></i> <strong>Status:</strong> 
+                        <i class="fas fa-check-circle"></i> <strong>Status:</strong>
                         <span class="text-muted">{{ doc.event_status }}</span>
                     </p>
 
                     <p class="card-text">
-                        <i class="fas fa-users"></i> <strong>Category:</strong> 
+                        <i class="fas fa-users"></i> <strong>Category:</strong>
                         <span class="text-muted">{{ doc.category }}</span>
                     </p>
 
                     <p class="card-text">
-                        <i class="fas fa-child"></i> <strong>Age Group:</strong> 
+                        <i class="fas fa-child"></i> <strong>Age Group:</strong>
                         <span class="text-muted">{{ doc.age_group }}</span>
                     </p>
 
                     <p class="card-text">
-                        <i class="fas fa-cogs"></i> <strong>Available Slots:</strong> 
+                        <i class="fas fa-cogs"></i> <strong>Available Slots:</strong>
                         <span class="text-muted">{{ doc.available_slots }}</span>
                     </p>
 
                     <p class="card-text">
-                        <i class="fas fa-clock"></i> <strong>Event Starts In:</strong> 
+                        <i class="fas fa-clock"></i> <strong>Event Starts In:</strong>
                         <span id="countdown"></span>
                     </p>
 
                     {% if doc.results_published %}
-                        <h3 class="mt-4 text-primary">Event Results</h3>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Participant</th>
-                                    <th>Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for result in doc.results %}
-                                    <tr>
-                                        <td>{{ result.rank }}</td>
-                                        <td>{{ result.participant }}</td>
-                                        <td>{{ result.time }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                    <h3 class="mt-4 text-primary">Event Results</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Participant</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in doc.results %}
+                            <tr>
+                                <td>{{ result.rank }}</td>
+                                <td>{{ result.participant }}</td>
+                                <td>{{ result.time }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                     {% endif %}
 
                     <!-- Registration Button -->
                     <div class="text-center mt-4">
-                        <a href="/event-registration-form/new?event_name={{ event_name }}" id="register-now-btn" class="btn btn-primary btn-lg shadow championship-events-btn">
+                        <a href="/event-registration-form/new?event_name={{ event_name }}" id="register-now-btn"
+                            class="btn btn-primary btn-lg shadow championship-events-btn">
                             <i class="fas fa-list"></i> Register Now
                         </a>
+                        <div id="message-container"></div>
                     </div>
 
                     <!-- Social Sharing Buttons -->
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="https://twitter.com/intent/tweet?text=Join%20{{ doc.event_name }}%20on%20{{ doc.event_date }}" target="_blank" class="btn btn-outline-info d-flex align-items-center">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Twitter_Logo_2012.png/1200px-Twitter_Logo_2012.png" alt="Twitter" style="width: 20px; height: 20px; margin-right: 8px;"> Share on Twitter
+                        <a href="https://twitter.com/intent/tweet?text=Join%20{{ doc.event_name }}%20on%20{{ doc.event_date }}"
+                            target="_blank" class="btn btn-outline-info d-flex align-items-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Twitter_Logo_2012.png/1200px-Twitter_Logo_2012.png"
+                                alt="Twitter" style="width: 20px; height: 20px; margin-right: 8px;"> Share on Twitter
                         </a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ frappe.utils.get_url() }}/events/{{ doc.name }}" target="_blank" class="btn btn-outline-primary d-flex align-items-center">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1024px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook" style="width: 20px; height: 20px; margin-right: 8px;"> Share on Facebook
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ frappe.utils.get_url() }}/events/{{ doc.name }}"
+                            target="_blank" class="btn btn-outline-primary d-flex align-items-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1024px-Facebook_f_logo_%282019%29.svg.png"
+                                alt="Facebook" style="width: 20px; height: 20px; margin-right: 8px;"> Share on Facebook
                         </a>
-                        <a href="https://api.whatsapp.com/send?text=Join%20{{ doc.event_name }}%20on%20{{ doc.event_date }}%20-%20{{ frappe.utils.get_url() }}/events/{{ doc.name }}" target="_blank" class="btn btn-outline-success d-flex align-items-center">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1024px-WhatsApp.svg.png" alt="WhatsApp" style="width: 20px; height: 20px; margin-right: 8px;"> Share on WhatsApp
+                        <a href="https://api.whatsapp.com/send?text=Join%20{{ doc.event_name }}%20on%20{{ doc.event_date }}%20-%20{{ frappe.utils.get_url() }}/events/{{ doc.name }}"
+                            target="_blank" class="btn btn-outline-success d-flex align-items-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1024px-WhatsApp.svg.png"
+                                alt="WhatsApp" style="width: 20px; height: 20px; margin-right: 8px;"> Share on WhatsApp
                         </a>
                     </div>
                 </div>
@@ -196,13 +203,17 @@
     }
 
     /* Social Media Buttons */
-    .btn-outline-info, .btn-outline-primary, .btn-outline-success {
+    .btn-outline-info,
+    .btn-outline-primary,
+    .btn-outline-success {
         transition: 0.3s ease-in-out;
         border-radius: 50px;
         font-weight: bold;
     }
 
-    .btn-outline-info:hover, .btn-outline-primary:hover, .btn-outline-success:hover {
+    .btn-outline-info:hover,
+    .btn-outline-primary:hover,
+    .btn-outline-success:hover {
         transform: scale(1.05);
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
     }
@@ -250,115 +261,88 @@
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const registerButton = document.getElementById("register-now-btn");
+    document.addEventListener("DOMContentLoaded", function () {
+        const registerButton = document.getElementById("register-now-btn");
+        const messageContainer = document.getElementById("message-container");
 
-    if (registerButton) {
-        registerButton.addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent default redirection
+        if (registerButton) {
+            registerButton.addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent default redirection
 
-            // Get cyclist_id from URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const cyclist_id = urlParams.get("cyclist_id");
+                // Get cyclist_id from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const cyclist_id = urlParams.get("cyclist_id");
 
-            if (!cyclist_id) {
-                frappe.msgprint({
-                    title: "Missing Cyclist ID",
-                    message: "Your Cyclist ID is missing. Please try again or contact support.",
-                    indicator: "red"
-                });
-                return;
-            }
-            
-            // Fetch Cyclist Data from Registration Doctype
-            frappe.call({
-                method: "cyclist.api.cyclist_registration_check",
-                args: { cyclist_id: cyclist_id },
-                callback: function(response) {
-                    if (response.message) {
-                        console.log(response.message);
-
-                        let cyclist = response.message;
-                        let age = cyclist.age;
-                        let gender = cyclist.gender;
-                        // let license_id = cyclist.license_id;
-                        // let license_type = cyclist.license_type;  // Fetch license type
-
-                        // License Validation
-                        // if (!license_id) {
-                        //     frappe.msgprint({
-                        //         title: "License Missing",
-                        //         message: `Your registration is incomplete as no valid license is found for Cyclist ID: ${cyclist_id}. Please apply for a license before registering.`,
-                        //         indicator: "red"
-                        //     });
-                        //     return;                            
-                        // }
-
-                        // Fetch event details from the page
-                        let event_age_group = "{{ doc.age_group }}";
-                        let event_category = "{{ doc.category }}";
-                        let event_type = "{{ doc.license_type }}";  // Event type
-
-                        // Age Validation
-                        let validAge = false;
-                        if ((age <= 19 && event_age_group === "Under 19") ||
-                            (age >= 20 && age <= 23 && event_age_group === "Under 23") ||
-                            (age > 23 && event_age_group === "Over 23")) {
-                            validAge = true;
-                        }
-
-                        // Category Validation
-                        let validCategory = (gender.toLowerCase() === event_category.toLowerCase());
-
-                        // // License Type Validation
-                        // let validLicenseType = (license_type === event_type);
-
-                        // Handle different validation cases
-                        if (!validAge) {
-                            frappe.msgprint({
-                                title: "Age Criteria Not Met",
-                                message: `You do not meet the age requirement for this event. Required: ${event_age_group}, Your Age: ${age}.`,
-                                indicator: "orange"
-                            });
-                        } else if (!validCategory) {
-                            frappe.msgprint({
-                                title: "Category Mismatch",
-                                message: `Your category does not match the event requirements. Required: ${event_category}, Your Category: ${gender}.`,
-                                indicator: "orange"
-                            });
-                        } 
-                        // else if (!validLicenseType) {
-                        //     frappe.msgprint({
-                        //         title: "License Type Mismatch",
-                        //         message: `Your license type does not match the event requirement. Required: ${event_type}, Your License: ${license_type}.`,
-                        //         indicator: "red"
-                        //     });
-                        // }               
-                        else {
-                            // If all validations pass, proceed to registration
-                            frappe.msgprint({
-                                title: "Registration Successful",
-                                message: "You meet all the requirements! Redirecting to the registration form...",
-                                indicator: "green"
-                            });
-
-                            setTimeout(function() {
-                                window.location.href = `/event-registration-form/new?event_name={{ event_name }}`;
-                            }, 2000); // Delay redirection for better UX
-                        }
-                    } else {
-                        frappe.throw("Unexpected error occurred. Please try again.");
-                        // ({
-                        //     title: "Error",
-                        //     message: `Unexpected error occurred. Please try again.`,
-                        //     indicator: "red"
-                        // });
-                    }
+                if (!cyclist_id) {
+                    if (registerButton) registerButton.style.display = "none"; // Hide button
+                    if (messageContainer) messageContainer.innerHTML =
+                        `<p style="color: red; font-weight: bold;">Please complete the registration form first.</p>`;
+                    return;
                 }
+
+                // Fetch Cyclist Data from Registration Doctype
+                frappe.call({
+                    method: "cyclist.api.cyclist_registration_check",
+                    args: { cyclist_id: cyclist_id },
+                    callback: function (response) {
+                        if (response.error) {
+                            // Hide button and show message if license is missing
+                            if (registerButton) registerButton.style.display = "none";
+                            if (messageContainer) messageContainer.innerHTML =
+                                `<p style="color: red; font-weight: bold;">${response.error}</p>`;
+                            return;
+                        }
+
+                        if (response.message) {
+                            let cyclist = response.message;
+                            let age = cyclist.age;
+                            let gender = cyclist.gender;
+                            let license_id = cyclist.license_id;
+
+                            // Check if the cyclist has a license
+                            if (!license_id) {
+                                if (registerButton) registerButton.style.display = "none";
+                                if (messageContainer) messageContainer.innerHTML =
+                                    `<p style="color: red; font-weight: bold;">
+                                    No valid license found for Cyclist ID: ${cyclist_id}. 
+                                    Please <a href="http://127.0.0.1:8001/new-license/new?cyclist_id=${cyclist_id}" 
+                                    style="color: blue; text-decoration: underline; font-weight: bold;">apply here</a> before registering.
+                                </p>`;
+                                return;
+                            }
+
+                            // Fetch event details from the page
+                            let event_age_group = "{{ doc.age_group }}";
+                            let event_category = "{{ doc.category }}";
+
+                            // Age Validation
+                            let validAge =
+                                (age <= 19 && event_age_group === "Under 19") ||
+                                (age >= 20 && age <= 23 && event_age_group === "Under 23") ||
+                                (age > 23 && event_age_group === "Over 23");
+
+                            // Category Validation
+                            let validCategory = (gender.toLowerCase() === event_category.toLowerCase());
+
+                            if (!validAge) {
+                                if (registerButton) registerButton.style.display = "none";
+                                if (messageContainer) messageContainer.innerHTML =
+                                    `<p style="color: orange; font-weight: bold;">You do not meet the age requirement. Required: ${event_age_group}, Your Age: ${age}.</p>`;
+                            } else if (!validCategory) {
+                                if (registerButton) registerButton.style.display = "none";
+                                if (messageContainer) messageContainer.innerHTML =
+                                    `<p style="color: orange; font-weight: bold;">Your category does not match the event requirements. Required: ${event_category}, Your Category: ${gender}.</p>`;
+                            } else {
+                                // If all validations pass, proceed to registration
+                                window.location.href = `/event-registration-form/new?event_name={{ event_name }}`;
+                            }
+                        }
+                    }
+                });
             });
-        });
-    }
-});
+        }
+    });
+
 
 
 
