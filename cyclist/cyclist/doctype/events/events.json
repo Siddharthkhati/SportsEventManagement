@@ -22,6 +22,7 @@
   "category",
   "age_group",
   "available_slots",
+  "license_type",
   "results_section",
   "results_published",
   "winner",
@@ -51,7 +52,7 @@
    "fieldname": "age_group",
    "fieldtype": "Select",
    "label": "Age Group",
-   "options": "Junior (Under 19)\nUnder 23\nElite (Over 23)"
+   "options": "Under 19\nUnder 23\nOver 23"
   },
   {
    "fieldname": "category",
@@ -138,13 +139,19 @@
    "fieldtype": "Int",
    "label": "Available Slots",
    "non_negative": 1
+  },
+  {
+   "fieldname": "license_type",
+   "fieldtype": "Select",
+   "label": "License Type",
+   "options": "Amateur\nProfessional\nJunior\nElite"
   }
  ],
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "is_published_field": "is_published",
  "links": [],
- "modified": "2025-02-05 12:26:32.759869",
+ "modified": "2025-02-12 12:16:06.355436",
  "modified_by": "Administrator",
  "module": "Cyclist",
  "name": "Events",

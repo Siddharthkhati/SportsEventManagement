@@ -97,7 +97,7 @@
 
                     <!-- Registration Button -->
                     <div class="text-center mt-4">
-                        <a href="/event-registration-form/new?event_name={{ event_name }}" class="btn btn-primary btn-lg shadow championship-events-btn">
+                        <a href="/event-registration-form/new?event_name={{ event_name }}" id="register-now-btn" class="btn btn-primary btn-lg shadow championship-events-btn">
                             <i class="fas fa-list"></i> Register Now
                         </a>
                     </div>
@@ -245,6 +245,122 @@
     //         }
     //     });
     // }
+
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const registerButton = document.getElementById("register-now-btn");
+
+    if (registerButton) {
+        registerButton.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent default redirection
+
+            // Get cyclist_id from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const cyclist_id = urlParams.get("cyclist_id");
+
+            if (!cyclist_id) {
+                frappe.msgprint({
+                    title: "Missing Cyclist ID",
+                    message: "Your Cyclist ID is missing. Please try again or contact support.",
+                    indicator: "red"
+                });
+                return;
+            }
+            
+            // Fetch Cyclist Data from Registration Doctype
+            frappe.call({
+                method: "cyclist.api.cyclist_registration_check",
+                args: { cyclist_id: cyclist_id },
+                callback: function(response) {
+                    if (response.message) {
+                        console.log(response.message);
+
+                        let cyclist = response.message;
+                        let age = cyclist.age;
+                        let gender = cyclist.gender;
+                        // let license_id = cyclist.license_id;
+                        // let license_type = cyclist.license_type;  // Fetch license type
+
+                        // License Validation
+                        // if (!license_id) {
+                        //     frappe.msgprint({
+                        //         title: "License Missing",
+                        //         message: `Your registration is incomplete as no valid license is found for Cyclist ID: ${cyclist_id}. Please apply for a license before registering.`,
+                        //         indicator: "red"
+                        //     });
+                        //     return;                            
+                        // }
+
+                        // Fetch event details from the page
+                        let event_age_group = "{{ doc.age_group }}";
+                        let event_category = "{{ doc.category }}";
+                        let event_type = "{{ doc.license_type }}";  // Event type
+
+                        // Age Validation
+                        let validAge = false;
+                        if ((age <= 19 && event_age_group === "Under 19") ||
+                            (age >= 20 && age <= 23 && event_age_group === "Under 23") ||
+                            (age > 23 && event_age_group === "Over 23")) {
+                            validAge = true;
+                        }
+
+                        // Category Validation
+                        let validCategory = (gender.toLowerCase() === event_category.toLowerCase());
+
+                        // // License Type Validation
+                        // let validLicenseType = (license_type === event_type);
+
+                        // Handle different validation cases
+                        if (!validAge) {
+                            frappe.msgprint({
+                                title: "Age Criteria Not Met",
+                                message: `You do not meet the age requirement for this event. Required: ${event_age_group}, Your Age: ${age}.`,
+                                indicator: "orange"
+                            });
+                        } else if (!validCategory) {
+                            frappe.msgprint({
+                                title: "Category Mismatch",
+                                message: `Your category does not match the event requirements. Required: ${event_category}, Your Category: ${gender}.`,
+                                indicator: "orange"
+                            });
+                        } 
+                        // else if (!validLicenseType) {
+                        //     frappe.msgprint({
+                        //         title: "License Type Mismatch",
+                        //         message: `Your license type does not match the event requirement. Required: ${event_type}, Your License: ${license_type}.`,
+                        //         indicator: "red"
+                        //     });
+                        // }               
+                        else {
+                            // If all validations pass, proceed to registration
+                            frappe.msgprint({
+                                title: "Registration Successful",
+                                message: "You meet all the requirements! Redirecting to the registration form...",
+                                indicator: "green"
+                            });
+
+                            setTimeout(function() {
+                                window.location.href = `/event-registration-form/new?event_name={{ event_name }}`;
+                            }, 2000); // Delay redirection for better UX
+                        }
+                    } else {
+                        frappe.throw("Unexpected error occurred. Please try again.");
+                        // ({
+                        //     title: "Error",
+                        //     message: `Unexpected error occurred. Please try again.`,
+                        //     indicator: "red"
+                        // });
+                    }
+                }
+            });
+        });
+    }
+});
+
+
 
 </script>
 

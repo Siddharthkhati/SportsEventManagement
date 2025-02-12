@@ -145,6 +145,18 @@ app_license = "mit"
 # 	}
 # }
 
+# doc_events = {
+#     "Event participants Details": {
+#         "after_save": "cyclist.api.update_event_count_hook"
+#     }
+# }
+
+# doc_events = {
+#     "Event Participants Details": {
+#         "after_save": "cyclist.events.after_save"
+#     }
+# }
+
 # Scheduled Tasks
 # ---------------
 
