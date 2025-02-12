@@ -23,22 +23,20 @@ def get_cyclist_details(cyclist_id):
     }
 
 
-class LicenseNotFoundError(Exception):
-    pass
+# class LicenseNotFoundError(Exception):
+#     pass
 
 @frappe.whitelist()
 def cyclist_registration_check(cyclist_id):
     try:
         # Fetch cyclist data
         cyclist = frappe.get_doc("Registration", cyclist_id)
-        # license = frappe.get_doc("License", cyclist_id)
 
-        # Attempt to fetch the license, but handle if it's missing
-        # try:
-        #     license = frappe.get_doc("License", cyclist_id)
-        #     license_id = license.license_id
-        # except frappe.DoesNotExistError:
-        #     raise LicenseNotFoundError(f"Your registration is incomplete as no valid license is found for Cyclist ID: {cyclist_id}. Please apply for a license before registering.")
+        # Check if a license exists for the given cyclist_id
+        license = frappe.get_all("License", filters={"cyclist_id": cyclist_id}, fields=["license_id", "license_type"])
+
+        if not license:
+            return {"error": f"No valid license found for Cyclist ID: {cyclist_id}. Please apply for a license before registering."}
 
         return {
             "first_name": cyclist.name1,
@@ -51,12 +49,13 @@ def cyclist_registration_check(cyclist_id):
             "birth_certificate": cyclist.birth_certificate,
             "aadhaar_card": cyclist.adhar_card,
             "medical_fitness_certificate": cyclist.medical_certificate,
-            # "license_id": cyclist.license_id
-            # "license_type": license.license_type,
+            "license_id": license[0]["license_id"],
+            "license_type": license[0]["license_type"],
         }
 
-    except LicenseNotFoundError as e:
-        return {"error": str(e)}  # Returning an error response instead of raising it
+    except frappe.DoesNotExistError:
+        return {"error": "Cyclist ID not found. Please complete the registration form first."}
+
      
 
 
