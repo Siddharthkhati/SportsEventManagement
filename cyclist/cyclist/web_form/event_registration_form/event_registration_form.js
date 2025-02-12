@@ -67,5 +67,47 @@ frappe.ready(function() {
         });
     }
 
+    frappe.web_form.validate = () => {
+        let is_agreed = frappe.web_form.get_value("i_confirm_the_above_event_registration_details");
+    
+        if (!is_agreed || is_agreed == "0") {
+            return false; 
+        }
+        return true; 
+    };
+   
+    frappe.web_form.on("after_save", function () {  // Ensure this runs after the form is saved
+        let event_name = frappe.web_form.get_value("event_name");  // Ensure "event_name" exists
+    
+        if (!event_name) {
+            frappe.msgprint({
+                title: "Error",
+                message: "Event name is missing or incorrect. Cannot update slot count.",
+                indicator: "red"
+            });
+            return;
+        }
+    
+        frappe.call({
+            method: "cyclist.api.update_event_count",
+            args: { event_name: event_name },
+            callback: function(response) {
+                if (response.message && response.message.status === "success") {
+                    frappe.msgprint({
+                        title: "Success",
+                        message: "Event slot count updated successfully!",
+                        indicator: "green"
+                    });
+                } else {
+                    frappe.msgprint({
+                        title: "Update Failed",
+                        message: response.message ? response.message.message : "Failed to update event slot count.",
+                        indicator: "red"
+                    });
+                }
+            }
+        });
+    });
+   
 
 });

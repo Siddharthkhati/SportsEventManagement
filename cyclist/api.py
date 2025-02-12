@@ -8,10 +8,11 @@ def get_cyclist_details(cyclist_id):
     cyclist = frappe.get_doc("Registration", cyclist_id)
 
     return {
+        # "cyclist_id": cyclist.cyclist_id,
         "first_name": cyclist.name1,
         "full_name": cyclist.full_name,
         "age": cyclist.age,
-        # "gender": cyclist.gender,
+        "gender": cyclist.gender,
         "aadhaar_number": cyclist.adhar_card_number,
         "email": cyclist.email,
         "passport_size_photograph": cyclist.passport_size_photograph,
@@ -20,6 +21,45 @@ def get_cyclist_details(cyclist_id):
         "medical_fitness_certificate": cyclist.medical_certificate,
         # "license_id": cyclist.license_id
     }
+
+
+class LicenseNotFoundError(Exception):
+    pass
+
+@frappe.whitelist()
+def cyclist_registration_check(cyclist_id):
+    try:
+        # Fetch cyclist data
+        cyclist = frappe.get_doc("Registration", cyclist_id)
+        # license = frappe.get_doc("License", cyclist_id)
+
+        # Attempt to fetch the license, but handle if it's missing
+        # try:
+        #     license = frappe.get_doc("License", cyclist_id)
+        #     license_id = license.license_id
+        # except frappe.DoesNotExistError:
+        #     raise LicenseNotFoundError(f"Your registration is incomplete as no valid license is found for Cyclist ID: {cyclist_id}. Please apply for a license before registering.")
+
+        return {
+            "first_name": cyclist.name1,
+            "full_name": cyclist.full_name,
+            "age": cyclist.age,
+            "gender": cyclist.gender,
+            "aadhaar_number": cyclist.adhar_card_number,
+            "email": cyclist.email,
+            "passport_size_photograph": cyclist.passport_size_photograph,
+            "birth_certificate": cyclist.birth_certificate,
+            "aadhaar_card": cyclist.adhar_card,
+            "medical_fitness_certificate": cyclist.medical_certificate,
+            # "license_id": cyclist.license_id
+            # "license_type": license.license_type,
+        }
+
+    except LicenseNotFoundError as e:
+        return {"error": str(e)}  # Returning an error response instead of raising it
+     
+
+
 #from frappe.auth import LoginManager
 
 @frappe.whitelist()
@@ -111,32 +151,46 @@ def update_registration(docname, first_name, middle_name, last_name, gender):
 
 
 @frappe.whitelist()
-def register_for_event(event_name, user):
-    """
-    Registers a user for an event and redirects to confirmation page.
+def update_event_count(event_name):
+    try:
+        if not event_name:
+            frappe.throw("Event name is missing.", title="Error")
+
+        # Fetch the event document
+        event = frappe.get_doc("Events", event_name)
+
+        if event.available_slots > 0:
+            event.available_slots -= 1  # Reduce available slots
+            event.save()
+            frappe.db.commit()
+            return {"status": "success", "message": "Event slot count updated."}
+        else:
+            frappe.throw("No slots available for this event.", title="Slots Full")
+
+    except frappe.DoesNotExistError:
+        frappe.throw(f"Event '{event_name}' not found.", title="Invalid Event")
     
-    Args:
-    event_name (str): The name of the event.
-    user (str): The user registering.
 
-    Returns:
-    dict: Redirect URL or error message.
-    """
-    events = frappe.get_doc("Events", {"event_name": event_name})
-
-    if events.available_slots > 0:
-        # Reduce available slots
-        events.available_slots -= 1
-        events.save()
-        frappe.db.commit()
-
-        # Generate confirmation page URL
-        confirmation_url = f"/confirmation.html?event_name={event_name}&event_date={events.event_date}"
-
-        return {"status": "success", "redirect_url": confirmation_url}
+# @frappe.whitelist()
+# def update_event_count_hook(doc, method):
+#     """
+#     Hook function that updates event count after saving the participant details.
     
-    else:
-        return {"status": "failed", "message": "Email not found"}
+#     Args:
+#         doc (object): The saved document of "Event Participants Details".
+#         method (str): The event method triggering this function (not used here).
+#     """
+#     event_name = doc.event  # Extract event name from the document
+#     user_email = doc.email  # Extract user's email from the document
+
+#     if event_name and user_email:
+#         response = update_event_count(event_name, user_email)  # Call existing function
+
+#         if response.get("status") == "success":
+#             frappe.msgprint("Event slot count updated successfully!")
+#         else:
+#             frappe.msgprint(f"Error updating event count: {response.get('message')}", indicator="red")
+
 
 import json
 from frappe.utils import today, add_days
