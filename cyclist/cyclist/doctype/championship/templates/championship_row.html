@@ -52,12 +52,31 @@
                         <p class="card-text championship-description">
                             {{ doc.location or 'No location available' }}
                         </p>
-                        <a href="/{{ doc.route }}" class="btn btn-primary">View Details</a>
+                        <a id="view-details-btn" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get URL parameters
+            let urlParams = new URLSearchParams(window.location.search);
+            let cyclist_id = urlParams.get("cyclist_id");
+
+            // Modify the event button link dynamically
+            let eventsLink = document.getElementById("view-details-btn");
+            let baseUrl = "/{{ doc.route }}";
+            
+            // Set the href dynamically
+            if (cyclist_id) {
+                eventsLink.href = baseUrl + "?cyclist_id=" + encodeURIComponent(cyclist_id);
+            } else {
+                eventsLink.href = baseUrl;
+            }
+        });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
